@@ -9,6 +9,9 @@ services:
     restart: unless-stopped
     expose:
       - "3000"
+    networks:
+      - coolify
+      - default
     environment:
       - PORT=3000
       - MAILCHIMP_API_KEY=${MAILCHIMP_API_KEY:-}
@@ -20,3 +23,9 @@ services:
       timeout: 5s
       retries: 3
       start_period: 5s
+
+networks:
+  coolify:
+    external: true
+  default:
+

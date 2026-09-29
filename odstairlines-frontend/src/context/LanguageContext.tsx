@@ -40,13 +40,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     document.documentElement.lang = language;
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
 
-    if (language === 'id') {
-      document.title = 'ODST Airlines Indonesia — Penerbangan Modern Indonesia & Arab Saudi';
-    } else if (language === 'ar') {
-      document.title = 'أوديست إيرلاينز إندو — طيران حديث يربط إندونيسيا بالمملكة العربية السعودية';
-    } else {
-      document.title = 'ODST Airlines Indonesia — Modern Flights Connecting Indonesia & Saudi Arabia';
-    }
+    document.title = 'ODST Airlines';
 
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {

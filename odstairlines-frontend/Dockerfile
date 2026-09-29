@@ -30,7 +30,8 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3000
 
-# Copy compiled static assets and server script only
+# Copy compiled static assets and server script
+COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/server.mjs ./server.mjs
 
@@ -40,9 +41,9 @@ USER node
 # Expose application port for Coolify / Docker proxy
 EXPOSE 3000
 
-# Built-in Healthcheck for Coolify container monitoring
+# Built-in Healthcheck for Coolify container monitoring (Alpine BusyBox compatible)
 HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/health || exit 1
+  CMD wget -q -O - http://127.0.0.1:3000/health || exit 1
 
 # Start production server
 CMD ["node", "server.mjs"]

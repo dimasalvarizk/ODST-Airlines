@@ -22,7 +22,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     } catch {
       // Ignore localStorage errors
     }
-    return 'id'; // Default to Indonesian
+    return 'ar'; // Default to Arabic (ar)
   });
 
   const setLanguage = (lang: Language) => {

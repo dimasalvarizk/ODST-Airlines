@@ -1,0 +1,27 @@
+# Ignore node_modules (will be installed freshly in container)
+node_modules
+npm-debug.log
+
+# Ignore build output (will be built freshly in container)
+dist
+dist-ssr
+
+# Ignore Git
+.git
+.gitignore
+
+# Ignore Environment Files & Secrets (CRITICAL: Loaded from Coolify runtime)
+.env
+.env.*
+.env.local
+.env.production
+.env.development
+
+# Ignore IDE & OS Files
+.vscode
+.idea
+.DS_Store
+*.swp
+*.swo
+*.log
+README.md

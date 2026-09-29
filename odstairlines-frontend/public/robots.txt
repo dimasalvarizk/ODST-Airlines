@@ -1,0 +1,6 @@
+# robots.txt for ODST Airlines Indonesia (PT. ODST AIRLINES INDO)
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://odstairlines.com/sitemap.xml

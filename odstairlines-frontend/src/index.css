@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --brand-orange: #E87729;
+    --brand-navy: #242E69;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  html[dir="rtl"] {
+    font-family: 'Noto Sans Arabic', Cairo, -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  html[dir="ltr"] {
+    font-family: Outfit, 'Plus Jakarta Sans', Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  body {
+    @apply bg-[#F4F6FB] text-[#242E69] antialiased selection:bg-[#E87729] selection:text-white;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  .text-brand-orange {
+    color: #E87729;
+  }
+
+  .bg-brand-orange {
+    background-color: #E87729;
+  }
+
+  .border-brand-orange {
+    border-color: #E87729;
+  }
+
+  .glass-header {
+    background: rgba(36, 46, 105, 0.25);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  html[dir="rtl"] .font-kufam {
+    font-family: 'Kufam', 'Noto Sans Arabic', sans-serif !important;
+  }
+
+  html[dir="rtl"] .font-noto-arabic {
+    font-family: 'Noto Sans Arabic', sans-serif !important;
+  }
+
+  html[dir="ltr"] .font-kufam,
+  html[dir="ltr"] .font-noto-arabic {
+    font-family: Outfit, 'Plus Jakarta Sans', Inter, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  }
+}

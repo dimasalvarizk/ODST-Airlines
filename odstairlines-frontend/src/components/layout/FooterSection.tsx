@@ -7,11 +7,18 @@ export const FooterSection: React.FC = () => {
   const { t } = useLanguage();
 
   const handleInternalNav = (e: React.MouseEvent, href: string) => {
+    if (href.startsWith('http')) {
+      return;
+    }
     e.preventDefault();
     if (window.location.hash) {
       window.history.replaceState(null, '', window.location.pathname + window.location.search);
     }
     const targetId = href.replace('#', '');
+    if (targetId === 'about') {
+      window.location.href = 'https://odst.id';
+      return;
+    }
     if (targetId === 'home') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
@@ -75,13 +82,22 @@ export const FooterSection: React.FC = () => {
                 <ul className="space-y-2.5 sm:space-y-3 text-xs sm:text-sm text-slate-300 font-noto-arabic font-normal">
                   {t.footer.companyLinks.map((link) => (
                     <li key={link.label}>
-                      <button
-                        type="button"
-                        onClick={(e) => handleInternalNav(e, link.href)}
-                        className="hover:text-white transition-colors block text-start cursor-pointer font-noto-arabic"
-                      >
-                        {link.label}
-                      </button>
+                      {link.href.startsWith('http') ? (
+                        <a
+                          href={link.href}
+                          className="hover:text-white transition-colors block text-start cursor-pointer font-noto-arabic"
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={(e) => handleInternalNav(e, link.href)}
+                          className="hover:text-white transition-colors block text-start cursor-pointer font-noto-arabic"
+                        >
+                          {link.label}
+                        </button>
+                      )}
                     </li>
                   ))}
                 </ul>

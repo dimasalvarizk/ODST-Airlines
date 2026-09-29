@@ -236,8 +236,8 @@ export const TRANSLATIONS: Record<Language, TranslationData> = {
       contactTitle: 'تواصل',
       rights: '© ODST AIRLINES INDONESIA — جميع الحقوق محفوظة.',
       companyLinks: [
-        { label: 'عن الشركة', href: 'about' },
-        { label: 'رؤيتنا', href: 'home' },
+        { label: 'عن أوديست', href: 'https://odst.id' },
+        { label: 'رؤيتنا', href: 'about' },
         { label: 'الشراكة', href: 'partnership' },
       ],
       journeyLinks: [
@@ -373,8 +373,8 @@ export const TRANSLATIONS: Record<Language, TranslationData> = {
       contactTitle: 'Connect',
       rights: '© ODST AIRLINES INDONESIA — All Rights Reserved.',
       companyLinks: [
-        { label: 'About Company', href: 'about' },
-        { label: 'Our Vision', href: 'home' },
+        { label: 'About ODST', href: 'https://odst.id' },
+        { label: 'Our Vision', href: 'about' },
         { label: 'Partnership', href: 'partnership' },
       ],
       journeyLinks: [
@@ -510,8 +510,8 @@ export const TRANSLATIONS: Record<Language, TranslationData> = {
       contactTitle: 'Kontak',
       rights: '© ODST AIRLINES INDONESIA — Hak Cipta Dilindungi.',
       companyLinks: [
-        { label: 'Tentang Perusahaan', href: 'about' },
-        { label: 'Visi Kami', href: 'home' },
+        { label: 'Tentang ODST', href: 'https://odst.id' },
+        { label: 'Visi Kami', href: 'about' },
         { label: 'Kemitraan', href: 'partnership' },
       ],
       journeyLinks: [

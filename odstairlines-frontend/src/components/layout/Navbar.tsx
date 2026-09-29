@@ -70,13 +70,18 @@ export const Navbar: React.FC = () => {
 
   const navItems = [
     { label: t.nav.home, targetId: 'home' },
-    { label: t.nav.about, targetId: 'about' },
+    { label: t.nav.about, targetId: 'about', href: 'https://odst.id' },
     { label: t.nav.services, targetId: 'services' },
     { label: t.nav.booking, targetId: 'booking-info' },
     { label: t.nav.contact, targetId: 'contact' },
   ];
 
-  const handleNavClick = (e: React.MouseEvent, targetId: string) => {
+  const handleNavClick = (e: React.MouseEvent, targetId: string, href?: string) => {
+    if (href || targetId === 'about') {
+      window.location.href = href || 'https://odst.id';
+      return;
+    }
+
     e.preventDefault();
     setMobileMenuOpen(false);
 
@@ -128,13 +133,23 @@ export const Navbar: React.FC = () => {
         {/* 2. Desktop Navigation Links (Tepat di Tengah / Centered in the middle) */}
         <nav className="hidden lg:flex items-center justify-center gap-6 lg:gap-8 xl:gap-10 absolute left-1/2 -translate-x-1/2 font-noto-arabic pointer-events-auto">
           {navItems.map((item) => (
-            <button
-              key={item.label}
-              onClick={(e) => handleNavClick(e, item.targetId)}
-              className="text-white hover:text-[#E87729] text-sm lg:text-[15px] font-medium tracking-wide transition-colors drop-shadow-sm whitespace-nowrap cursor-pointer font-noto-arabic"
-            >
-              {item.label}
-            </button>
+            item.href ? (
+              <a
+                key={item.label}
+                href={item.href}
+                className="text-white hover:text-[#E87729] text-sm lg:text-[15px] font-medium tracking-wide transition-colors drop-shadow-sm whitespace-nowrap cursor-pointer font-noto-arabic"
+              >
+                {item.label}
+              </a>
+            ) : (
+              <button
+                key={item.label}
+                onClick={(e) => handleNavClick(e, item.targetId)}
+                className="text-white hover:text-[#E87729] text-sm lg:text-[15px] font-medium tracking-wide transition-colors drop-shadow-sm whitespace-nowrap cursor-pointer font-noto-arabic"
+              >
+                {item.label}
+              </button>
+            )
           ))}
         </nav>
 
@@ -214,13 +229,24 @@ export const Navbar: React.FC = () => {
         <div className="lg:hidden absolute top-full left-4 right-4 mt-2 z-50 bg-[#131B45]/98 backdrop-blur-2xl rounded-2xl p-6 border border-white/20 shadow-2xl animate-in slide-in-from-top-3 space-y-5 font-noto-arabic">
           <div className="flex flex-col space-y-3 font-noto-arabic text-start">
             {navItems.map((item) => (
-              <button
-                key={item.label}
-                onClick={(e) => handleNavClick(e, item.targetId)}
-                className="text-white text-base font-bold py-2.5 px-3 rounded-xl hover:bg-white/10 hover:text-[#E87729] transition-all font-noto-arabic text-start cursor-pointer"
-              >
-                {item.label}
-              </button>
+              item.href ? (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-white text-base font-bold py-2.5 px-3 rounded-xl hover:bg-white/10 hover:text-[#E87729] transition-all font-noto-arabic text-start cursor-pointer block"
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <button
+                  key={item.label}
+                  onClick={(e) => handleNavClick(e, item.targetId)}
+                  className="text-white text-base font-bold py-2.5 px-3 rounded-xl hover:bg-white/10 hover:text-[#E87729] transition-all font-noto-arabic text-start cursor-pointer"
+                >
+                  {item.label}
+                </button>
+              )
             ))}
           </div>
 

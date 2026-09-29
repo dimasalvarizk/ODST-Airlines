@@ -13,7 +13,11 @@ import { ClosingStatementSection } from '../components/sections/ClosingStatement
 import { FooterSection } from '../components/layout/FooterSection';
 import { NewsletterModal } from '../components/ui/NewsletterModal';
 
-export const LandingPage: React.FC = () => {
+export interface LandingPageProps {
+  onNavigate?: (page: 'landing' | 'contact', sectionId?: string) => void;
+}
+
+export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
   const [newsletterOpen, setNewsletterOpen] = useState(false);
 
   const handleExploreVision = () => {
@@ -38,7 +42,7 @@ export const LandingPage: React.FC = () => {
       <SplashScreen />
 
       {/* Fixed Sticky Navbar with smooth scrolling & 3-language selector */}
-      <Navbar />
+      <Navbar currentPage="landing" onNavigate={onNavigate} />
 
       {/* 1. Launch Hero Section */}
       <LaunchHero
@@ -71,7 +75,7 @@ export const LandingPage: React.FC = () => {
       <ClosingStatementSection onNotifyMe={handleOpenNewsModal} />
 
       {/* 10. Brand Footer */}
-      <FooterSection />
+      <FooterSection currentPage="landing" onNavigate={onNavigate} />
 
       {/* Newsletter / Launch Alert Modal */}
       <NewsletterModal

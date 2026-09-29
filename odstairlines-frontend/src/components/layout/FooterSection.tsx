@@ -3,7 +3,12 @@ import { useLanguage } from '../../context/LanguageContext';
 import { ScrollReveal } from '../ui/ScrollReveal';
 import odstLogo from '../../assets/LogoOdst.png';
 
-export const FooterSection: React.FC = () => {
+export interface FooterSectionProps {
+  currentPage?: 'landing' | 'contact';
+  onNavigate?: (page: 'landing' | 'contact', sectionId?: string) => void;
+}
+
+export const FooterSection: React.FC<FooterSectionProps> = ({ currentPage = 'landing', onNavigate }) => {
   const { t } = useLanguage();
 
   const handleInternalNav = (e: React.MouseEvent, href: string) => {
@@ -17,6 +22,23 @@ export const FooterSection: React.FC = () => {
     const targetId = href.replace('#', '');
     if (targetId === 'about') {
       window.location.href = 'https://odst.id';
+      return;
+    }
+    if (targetId === 'contact') {
+      if (onNavigate) {
+        onNavigate('contact');
+      } else {
+        window.history.pushState(null, '', '/contact');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      return;
+    }
+    if (currentPage === 'contact') {
+      if (onNavigate) {
+        onNavigate('landing', targetId);
+      } else {
+        window.history.pushState(null, '', '/');
+      }
       return;
     }
     if (targetId === 'home') {

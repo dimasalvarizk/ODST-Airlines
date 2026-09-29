@@ -38,7 +38,12 @@ const IndonesiaFlag: React.FC = () => (
   </svg>
 );
 
-export const Navbar: React.FC = () => {
+export interface NavbarProps {
+  currentPage?: 'landing' | 'contact';
+  onNavigate?: (page: 'landing' | 'contact', sectionId?: string) => void;
+}
+
+export const Navbar: React.FC<NavbarProps> = ({ currentPage = 'landing', onNavigate }) => {
   const { language, setLanguage, t, isRTL } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
@@ -88,6 +93,25 @@ export const Navbar: React.FC = () => {
     // Clean hash from address bar completely
     if (window.location.hash) {
       window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+
+    if (targetId === 'contact') {
+      if (onNavigate) {
+        onNavigate('contact');
+      } else {
+        window.history.pushState(null, '', '/contact');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      return;
+    }
+
+    if (currentPage === 'contact') {
+      if (onNavigate) {
+        onNavigate('landing', targetId);
+      } else {
+        window.history.pushState(null, '', '/');
+      }
+      return;
     }
 
     if (targetId === 'home') {

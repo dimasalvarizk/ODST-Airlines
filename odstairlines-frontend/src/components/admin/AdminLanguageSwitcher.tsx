@@ -43,42 +43,43 @@ export const AdminLanguageSwitcher: React.FC<AdminLanguageSwitcherProps> = ({
   className = '',
 }) => {
   const [open, setOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const currentOption =
     ADMIN_LANGUAGE_CONFIG.find((l) => l.code === currentLang) || ADMIN_LANGUAGE_CONFIG[0];
   const ActiveFlag = currentOption.FlagComponent;
 
-  // Handle outside click cleanly without full-screen backdrops
+  // Window click listener for outside dismissal
   useEffect(() => {
     if (!open) return;
 
-    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+    const handleWindowClick = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
         setOpen(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('touchstart', handleClickOutside);
-
+    window.addEventListener('click', handleWindowClick);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('touchstart', handleClickOutside);
+      window.removeEventListener('click', handleWindowClick);
     };
   }, [open]);
 
-  const handleSelect = (code: AdminLanguage) => {
+  const selectLanguage = (code: AdminLanguage) => {
     onChangeLang(code);
     setOpen(false);
   };
 
   return (
-    <div ref={containerRef} className={`relative inline-block text-left ${className}`}>
+    <div ref={dropdownRef} className={`relative inline-block text-left ${className}`}>
       {/* Trigger Button */}
       <button
         type="button"
-        onClick={() => setOpen((prev) => !prev)}
+        id="admin-language-trigger-btn"
+        onClick={(e) => {
+          e.stopPropagation();
+          setOpen((prev) => !prev);
+        }}
         aria-haspopup="listbox"
         aria-expanded={open}
         className={`inline-flex items-center gap-2 px-2.5 py-1.5 rounded-lg border text-xs transition-all duration-150 cursor-pointer select-none active:scale-95 ${
@@ -101,7 +102,8 @@ export const AdminLanguageSwitcher: React.FC<AdminLanguageSwitcherProps> = ({
       {/* Popover Dropdown Menu */}
       {open && (
         <div
-          className="absolute right-0 mt-1.5 w-44 rounded-xl bg-[#0E1538] border border-white/15 shadow-2xl shadow-black/80 p-1 z-50 animate-in fade-in zoom-in-95 duration-100"
+          id="admin-language-dropdown-menu"
+          className="absolute right-0 top-full mt-1.5 w-44 rounded-xl bg-[#0E1538] border border-white/15 shadow-2xl shadow-black/80 p-1 z-50 animate-in fade-in zoom-in-95 duration-100"
           role="listbox"
         >
           <div className="space-y-0.5">
@@ -113,12 +115,12 @@ export const AdminLanguageSwitcher: React.FC<AdminLanguageSwitcherProps> = ({
                 <button
                   key={lang.code}
                   type="button"
+                  id={`admin-lang-option-${lang.code}`}
                   role="option"
                   aria-selected={isSelected}
                   onClick={(e) => {
-                    e.preventDefault();
                     e.stopPropagation();
-                    handleSelect(lang.code);
+                    selectLanguage(lang.code);
                   }}
                   className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition-colors cursor-pointer text-left select-none ${
                     isSelected

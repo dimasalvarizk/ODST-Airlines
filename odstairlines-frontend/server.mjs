@@ -10,6 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const PORT = parseInt(process.env.PORT || '3000', 10);
+const BACKEND_URL = process.env.BACKEND_URL || process.env.VITE_API_URL || 'http://backend:5000';
 const DIST_DIR = path.join(__dirname, 'dist');
 
 // MIME types dictionary
@@ -34,6 +35,41 @@ const MIME_TYPES = {
   '.txt': 'text/plain; charset=UTF-8',
 };
 
+// Handle Proxy to Backend API
+function proxyToBackend(req, res, targetUrl) {
+  const backendParsed = new URL(targetUrl);
+  const isHttps = backendParsed.protocol === 'https:';
+  const clientLib = isHttps ? https : http;
+
+  const options = {
+    hostname: backendParsed.hostname,
+    port: backendParsed.port || (isHttps ? 443 : 80),
+    path: req.url,
+    method: req.method,
+    headers: {
+      ...req.headers,
+      host: backendParsed.host,
+      'x-forwarded-for': req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+      'x-forwarded-proto': isHttps ? 'https' : 'http',
+    },
+  };
+
+  const proxyReq = clientLib.request(options, (proxyRes) => {
+    res.writeHead(proxyRes.statusCode || 500, proxyRes.headers);
+    proxyRes.pipe(res);
+  });
+
+  proxyReq.on('error', (err) => {
+    console.error('[Backend Proxy Error]', err.message);
+    if (!res.headersSent) {
+      res.writeHead(502, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, message: 'Backend service unavailable', error: err.message }));
+    }
+  });
+
+  req.pipe(proxyReq);
+}
+
 // Handle Mailchimp Subscription API
 function handleSubscribe(req, res) {
   if (req.method !== 'POST') {
@@ -46,7 +82,7 @@ function handleSubscribe(req, res) {
   req.on('data', (chunk) => {
     body += chunk;
     if (body.length > 1e6) {
-      req.socket.destroy(); // Protect against payload overload
+      req.socket.destroy();
     }
   });
 
@@ -68,7 +104,6 @@ function handleSubscribe(req, res) {
 
       if (!apiKey || !listId) {
         console.warn('[Mailchimp] API Key or Audience ID not set in environment variables');
-        // Return friendly mock success if environment is pending configuration in Coolify
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success: true, message: 'Registration received successfully' }));
         return;
@@ -143,7 +178,6 @@ function serveStatic(req, res, filePath, isSpaFallback = false) {
   fs.stat(filePath, (err, stats) => {
     if (err || !stats.isFile()) {
       if (!isSpaFallback) {
-        // Fallback to index.html for Single Page Application routing
         const indexHtml = path.join(DIST_DIR, 'index.html');
         return serveStatic(req, res, indexHtml, true);
       }
@@ -155,9 +189,6 @@ function serveStatic(req, res, filePath, isSpaFallback = false) {
     const ext = path.extname(filePath).toLowerCase();
     const contentType = MIME_TYPES[ext] || 'application/octet-stream';
 
-    // Caching Strategy:
-    // - Static hashed assets (/assets/): cache for 1 year immutable
-    // - HTML files: no-cache so updates reflect immediately
     let cacheControl = 'public, max-age=3600';
     if (filePath.includes(path.sep + 'assets' + path.sep)) {
       cacheControl = 'public, max-age=31536000, immutable';
@@ -177,7 +208,6 @@ function serveStatic(req, res, filePath, isSpaFallback = false) {
     const acceptEncoding = req.headers['accept-encoding'] || '';
     const rawStream = fs.createReadStream(filePath);
 
-    // Compress text and JSON files if client supports it
     const isCompressible = /text|javascript|json|xml|svg/i.test(contentType);
 
     if (isCompressible && acceptEncoding.includes('gzip')) {
@@ -208,9 +238,20 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // API Routes
+  // API Routes - Mailchimp Subscription
   if (pathname === '/api/subscribe') {
     handleSubscribe(req, res);
+    return;
+  }
+
+  // API Routes - Forward to Backend API
+  if (
+    pathname.startsWith('/api/auth') ||
+    pathname.startsWith('/api/countdown') ||
+    pathname.startsWith('/api/contact') ||
+    pathname.startsWith('/api/admin')
+  ) {
+    proxyToBackend(req, res, BACKEND_URL);
     return;
   }
 
@@ -232,7 +273,6 @@ server.listen(PORT, '0.0.0.0', () => {
   console.log(`[ODST Airlines] Production server running on http://0.0.0.0:${PORT}`);
 });
 
-// Graceful Shutdown
 process.on('SIGTERM', () => {
   console.log('[ODST Airlines] SIGTERM received. Closing server gracefully...');
   server.close(() => process.exit(0));

@@ -111,6 +111,26 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   return {
     plugins: [react(), mailchimpApiPlugin(env)],
+    server: {
+      port: 3000,
+      proxy: {
+        '/api/auth': {
+          target: 'http://localhost:5000',
+          changeOrigin: true,
+        },
+        '/api/countdown': {
+          target: 'http://localhost:5000',
+          changeOrigin: true,
+        },
+        '/api/contact': {
+          target: 'http://localhost:5000',
+          changeOrigin: true,
+        },
+        '/api/admin': {
+          target: 'http://localhost:5000',
+          changeOrigin: true,
+        },
+      },
+    },
   };
 });
-

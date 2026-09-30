@@ -14,7 +14,7 @@ import { FooterSection } from '../components/layout/FooterSection';
 import { NewsletterModal } from '../components/ui/NewsletterModal';
 
 export interface LandingPageProps {
-  onNavigate?: (page: 'landing' | 'contact', sectionId?: string) => void;
+  onNavigate?: (page: 'landing' | 'contact' | 'admin', sectionId?: string) => void;
 }
 
 export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {

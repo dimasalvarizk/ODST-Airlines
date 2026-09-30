@@ -5,42 +5,11 @@ import odstLogo from '../../assets/LogoOdst.png';
 import languageIcon from '../../assets/Language.png';
 import type { Language } from '../../data/translations';
 
-// Crisp vector SVG flags that render consistently across all OS (Windows, Mac, iOS, Android)
-const SaudiFlag: React.FC = () => (
-  <svg className="w-5 h-3.5 rounded-[3px] shadow-sm shrink-0" viewBox="0 0 30 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="30" height="20" fill="#006C35" rx="2" />
-    <path d="M8 13h14M8 13l2-1.5M8 13l2 1.5" stroke="#FFFFFF" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
-    <text x="15" y="9.5" textAnchor="middle" fill="#FFFFFF" fontSize="5" fontWeight="bold" fontFamily="sans-serif">لا إله إلا الله</text>
-  </svg>
-);
-
-const UKFlag: React.FC = () => (
-  <svg className="w-5 h-3.5 rounded-[3px] shadow-sm shrink-0" viewBox="0 0 60 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <clipPath id="uk-flag-clip"><rect width="60" height="30" rx="2" /></clipPath>
-    <g clipPath="url(#uk-flag-clip)">
-      <path d="M0 0h60v30H0z" fill="#012169" />
-      <path d="M0 0l60 30m0-30L0 30" stroke="#fff" strokeWidth="6" />
-      <path d="M0 0l60 30m0-30L0 30" stroke="#C8102E" strokeWidth="4" />
-      <path d="M30 0v30M0 15h60" stroke="#fff" strokeWidth="10" />
-      <path d="M30 0v30M0 15h60" stroke="#C8102E" strokeWidth="6" />
-    </g>
-  </svg>
-);
-
-const IndonesiaFlag: React.FC = () => (
-  <svg className="w-5 h-3.5 rounded-[3px] shadow-sm shrink-0" viewBox="0 0 30 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <clipPath id="id-flag-clip"><rect width="30" height="20" rx="2" /></clipPath>
-    <g clipPath="url(#id-flag-clip)">
-      <rect width="30" height="10" fill="#CE1126" />
-      <rect y="10" width="30" height="10" fill="#FFFFFF" />
-      <rect width="30" height="20" stroke="#CBD5E1" strokeWidth="0.8" fill="none" />
-    </g>
-  </svg>
-);
+import { IndonesiaFlag, UKFlag, SaudiFlag } from '../common/Flags';
 
 export interface NavbarProps {
   currentPage?: 'landing' | 'contact';
-  onNavigate?: (page: 'landing' | 'contact', sectionId?: string) => void;
+  onNavigate?: (page: 'landing' | 'contact' | 'admin', sectionId?: string) => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ currentPage = 'landing', onNavigate }) => {

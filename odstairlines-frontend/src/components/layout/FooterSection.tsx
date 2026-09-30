@@ -5,7 +5,7 @@ import odstLogo from '../../assets/LogoOdst.png';
 
 export interface FooterSectionProps {
   currentPage?: 'landing' | 'contact';
-  onNavigate?: (page: 'landing' | 'contact', sectionId?: string) => void;
+  onNavigate?: (page: 'landing' | 'contact' | 'admin', sectionId?: string) => void;
 }
 
 export const FooterSection: React.FC<FooterSectionProps> = ({ currentPage = 'landing', onNavigate }) => {
@@ -22,6 +22,14 @@ export const FooterSection: React.FC<FooterSectionProps> = ({ currentPage = 'lan
     const targetId = href.replace('#', '');
     if (targetId === 'about') {
       window.location.href = 'https://odst.id';
+      return;
+    }
+    if (targetId === 'admin') {
+      if (onNavigate) {
+        onNavigate('admin');
+      } else {
+        window.history.pushState(null, '', '/admin');
+      }
       return;
     }
     if (targetId === 'contact') {

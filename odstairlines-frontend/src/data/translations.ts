@@ -129,21 +129,16 @@ export interface TranslationData {
   contactPage: {
     badge: string;
     heroTitle: string;
-    heroTitleLine1?: string;
-    heroTitleLine2?: string;
     heroSubtitle: string;
-    hubsTitle: string;
-    hubsSubtitle: string;
-    jakartaTitle: string;
-    jakartaAddress: string;
-    jakartaRole: string;
-    saudiTitle: string;
-    saudiAddress: string;
-    saudiRole: string;
-    flightDeskTitle: string;
-    flightDeskEmail: string;
-    flightDeskPhone: string;
-    flightDeskHours: string;
+    division: string;
+    company: string;
+    phoneTitle: string;
+    phone: string;
+    phoneTel: string;
+    emailTitle: string;
+    email: string;
+    addressTitle: string;
+    address: string;
     formTitle: string;
     formSubtitle: string;
     formName: string;
@@ -152,24 +147,20 @@ export interface TranslationData {
     formEmailPlaceholder: string;
     formPhone: string;
     formPhonePlaceholder: string;
-    formCategory: string;
-    categories: {
-      charter: string;
-      hajjUmrah: string;
-      scheduled: string;
-      agency: string;
-      general: string;
-    };
+    formSubject: string;
+    formSubjectPlaceholder: string;
     formMessage: string;
     formMessagePlaceholder: string;
     formSubmit: string;
     formSubmitting: string;
     successTitle: string;
     successMessage: string;
-    directChat: string;
-    directChatSub: string;
-    whatsappButton: string;
     backToHome: string;
+    // Map Section (Single Official Location)
+    mapBadge: string;
+    mapTitle: string;
+    mapSubtitle: string;
+    openInMaps: string;
   };
 }
 
@@ -312,49 +303,39 @@ export const TRANSLATIONS: Record<Language, TranslationData> = {
       toastDesc: 'شكراً لكم، ستكونون أول من يعلم بجدول الإطلاق وحجوزات التذاكر.',
     },
     contactPage: {
-      badge: 'مكتب خطوط الطيران والتواصل',
+      badge: 'Aviation & Charter',
       heroTitle: 'تواصل مع أوديست إيرلاينز',
-      heroTitleLine1: 'تواصل مع فريق',
-      heroTitleLine2: 'أوديست إيرلاينز للطيران',
-      heroSubtitle: 'نحن هنا لخدمتكم والإجابة عن استفسارات رحلات الحج والعمرة، تشارتر الطيران، والشراكات الاستراتيجية بين إندونيسيا والمملكة العربية السعودية.',
-      hubsTitle: 'المكاتب والمحطات التشغيلية',
-      hubsSubtitle: 'محطاتنا الرئيسية لخدمة الرحلات والضيوف في إندونيسيا والمملكة العربية السعودية.',
-      jakartaTitle: 'محطة جاكرتا — إندونيسيا',
-      jakartaAddress: 'جاكرتا، إندونيسيا — مركز العمليات الجوية وممر مطار سوكارنو هاتا الدولي',
-      jakartaRole: 'المقر التجاري والعمليات الجوية لإندونيسيا',
-      saudiTitle: 'محطة المدينة المنورة وجدة — المملكة',
-      saudiAddress: 'المدينة المنورة / جدة، المملكة العربية السعودية — مركز مجموعة منازل المختارة',
-      saudiRole: 'مركز التنسيق والضيافة للحج والعمرة بالمملكة',
-      flightDeskTitle: 'مكتب عمليات الطيران والحجوزات',
-      flightDeskEmail: 'airlines@odst.id',
-      flightDeskPhone: '+62 811-1920-8888',
-      flightDeskHours: 'دعم العمليات الجوية على مدار الساعة خلال مواسم الرحلات',
-      formTitle: 'طلب حجز أو استفسار طيران',
-      formSubtitle: 'أرسل تفاصيل رحلتكم أو استفساركم التجاري، وسيتواصل معكم فريق العمليات بأسرع وقت.',
-      formName: 'الاسم الكامل / اسم الجهة',
-      formNamePlaceholder: 'مثال: محمد الشريف أو وكالة سفر',
+      heroSubtitle: 'نسعد باستقبال استفساراتكم حول خدمات الطيران والتشارتر وحجوزات الرحلات الجوية.',
+      division: 'Aviation & Charter',
+      company: 'ODST Airlines',
+      phoneTitle: 'الهاتف',
+      phone: '+62 81111 202220',
+      phoneTel: '+6281111202220',
+      emailTitle: 'البريد الإلكتروني',
+      email: 'info@odst.id',
+      addressTitle: 'العنوان',
+      address: 'Graha Al Badgel Jl. Hajjah Tutty Alawiyah No.7, RT.2/RW.5, Kalibata, Kec. Pancoran, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta, Indonesia 12740',
+      formTitle: 'إرسال رسالة',
+      formSubtitle: 'يرجى تعبئة النموذج أدناه وسنقوم بالرد عليكم بأقرب وقت.',
+      formName: 'الاسم الكامل',
+      formNamePlaceholder: 'الاسم الكريم',
       formEmail: 'البريد الإلكتروني',
-      formEmailPlaceholder: 'name@company.com',
-      formPhone: 'رقم الهاتف / واتساب',
-      formPhonePlaceholder: '+62 ... أو +966 ...',
-      formCategory: 'نوع الاستفسار أو الخدمة المطلوبة',
-      categories: {
-        charter: 'تشارتر طيران خاص (Charter Flight)',
-        hajjUmrah: 'حجوزات مجموعات الحج والعمرة',
-        scheduled: 'استفسار عن الرحلات المجدولة',
-        agency: 'شراكات وكالات السفر والشركات',
-        general: 'استفسار عام عن الطيران',
-      },
-      formMessage: 'تفاصيل الرحلة أو الرسالة',
-      formMessagePlaceholder: 'يرجى كتابة عدد الركاب المتوقع، المسار المفضل (جاكرتا - جدة / المدينة)، والمواعيد المقترحة...',
-      formSubmit: 'إرسال طلب الاستفسار',
+      formEmailPlaceholder: 'name@example.com',
+      formPhone: 'رقم الهاتف',
+      formPhonePlaceholder: '+62 ...',
+      formSubject: 'الموضوع',
+      formSubjectPlaceholder: 'الموضوع أو نوع الاستفسار',
+      formMessage: 'الرسالة',
+      formMessagePlaceholder: 'اكتب رسالتك أو تفاصيل استفسارك هنا...',
+      formSubmit: 'إرسال الرسالة',
       formSubmitting: 'جاري الإرسال...',
-      successTitle: 'تم إرسال طلبكم بنجاح',
-      successMessage: 'شكراً لتواصلكم مع أوديست إيرلاينز. سيقوم فريق العمليات الجوية بالتواصل معكم قريباً.',
-      directChat: 'تواصل مباشر وسريع عبر واتساب',
-      directChatSub: 'فريق دعم رحلات أوديست متواجد للإجابة الفورية على استفساراتكم.',
-      whatsappButton: 'محادثة فورية عبر واتساب',
-      backToHome: 'العودة إلى الصفحة الرئيسية',
+      successTitle: 'تم إرسال رسالتكم بنجاح',
+      successMessage: 'شكراً لتواصلكم مع أوديست إيرلاينز. سنقوم بالرد عليكم في أقرب وقت.',
+      backToHome: 'العودة إلى الرئيسية',
+      mapBadge: 'موقعنا على الخريطة',
+      mapTitle: 'موقع المكتب',
+      mapSubtitle: 'المقر الرئيسي لأوديست إيرلاينز — غراها البادجل، جاكرتا الجنوبية',
+      openInMaps: 'فتح في خرائط جوجل',
     },
   },
 
@@ -375,7 +356,7 @@ export const TRANSLATIONS: Record<Language, TranslationData> = {
       headlineLine2: 'and Saudi Arabia',
       intro: 'ODST Airlines Indonesia — A modern aviation vision bridging distances, with dedicated care for Hajj & Umrah journeys.',
       actionExplore: 'Explore Our Vision',
-      actionNews: 'Follow Launch News',
+      actionNews: 'Follow Launch Updates',
     },
     introSection: {
       label: 'Welcome Aboard Our Vision',
@@ -494,49 +475,39 @@ export const TRANSLATIONS: Record<Language, TranslationData> = {
       toastDesc: 'Thank you! You will be among the first to receive launch announcements and booking access.',
     },
     contactPage: {
-      badge: 'Aviation Contact & Flight Operations',
-      heroTitle: 'Connect with ODST Airlines',
-      heroTitleLine1: 'Connect with the',
-      heroTitleLine2: 'ODST Airlines Team',
-      heroSubtitle: 'We are here to assist with flight charter requests, Hajj & Umrah group allocations, agency partnerships, and general airline inquiries between Indonesia and Saudi Arabia.',
-      hubsTitle: 'Operational Hubs & Offices',
-      hubsSubtitle: 'Our key hubs serving passengers and airline operations across Indonesia and Saudi Arabia.',
-      jakartaTitle: 'Jakarta Hub — Indonesia',
-      jakartaAddress: 'Jakarta, Indonesia — Flight Operations Corridor & Soekarno-Hatta Int\'l Hub',
-      jakartaRole: 'Indonesia Commercial & Flight Operations Office',
-      saudiTitle: 'Madinah & Jeddah Hub — Saudi Arabia',
-      saudiAddress: 'Madinah Al-Munawwarah & Jeddah, KSA — Manazil Al Mukhtara Group Hub',
-      saudiRole: 'Kingdom Headquarters & Sacred Pilgrimage Coordination',
-      flightDeskTitle: 'Flight Desk & Charter Inquiries',
-      flightDeskEmail: 'airlines@odst.id',
-      flightDeskPhone: '+62 811-1920-8888',
-      flightDeskHours: '24/7 Operations Support during flight operating seasons',
-      formTitle: 'Flight & Charter Inquiry Form',
-      formSubtitle: 'Submit your flight requirements or business inquiry and our airline operations desk will respond promptly.',
-      formName: 'Full Name / Company Name',
-      formNamePlaceholder: 'e.g. John Doe / Travel Agency',
+      badge: 'Aviation & Charter',
+      heroTitle: 'Contact ODST Airlines',
+      heroSubtitle: 'Get in touch with us for aviation, charter services, and flight booking inquiries.',
+      division: 'Aviation & Charter',
+      company: 'ODST Airlines',
+      phoneTitle: 'Phone',
+      phone: '+62 81111 202220',
+      phoneTel: '+6281111202220',
+      emailTitle: 'Email',
+      email: 'info@odst.id',
+      addressTitle: 'Address',
+      address: 'Graha Al Badgel Jl. Hajjah Tutty Alawiyah No.7, RT.2/RW.5, Kalibata, Kec. Pancoran, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta, Indonesia 12740',
+      formTitle: 'Send a Message',
+      formSubtitle: 'Please fill out the form below and our team will get back to you promptly.',
+      formName: 'Full Name',
+      formNamePlaceholder: 'Your full name',
       formEmail: 'Email Address',
-      formEmailPlaceholder: 'name@company.com',
-      formPhone: 'Phone / WhatsApp Number',
-      formPhonePlaceholder: '+62 ... or +966 ...',
-      formCategory: 'Inquiry Category',
-      categories: {
-        charter: 'Aircraft Charter Service',
-        hajjUmrah: 'Hajj & Umrah Group Booking',
-        scheduled: 'Scheduled Flights Inquiry',
-        agency: 'Travel Agency & Corporate Partnership',
-        general: 'General Airline Inquiries',
-      },
-      formMessage: 'Flight Details / Message',
-      formMessagePlaceholder: 'Please specify passenger count, preferred route (Jakarta - Jeddah / Madinah), dates, and any special requirements...',
-      formSubmit: 'Send Flight Inquiry',
-      formSubmitting: 'Submitting...',
-      successTitle: 'Inquiry Sent Successfully',
-      successMessage: 'Thank you for reaching out to ODST Airlines. Our flight operations team will get in touch with you shortly.',
-      directChat: 'Instant WhatsApp Assistance',
-      directChatSub: 'Direct connection to ODST Airlines support for quick guidance.',
-      whatsappButton: 'Chat on WhatsApp',
+      formEmailPlaceholder: 'name@example.com',
+      formPhone: 'Phone Number',
+      formPhonePlaceholder: '+62 ...',
+      formSubject: 'Subject',
+      formSubjectPlaceholder: 'Inquiry subject or flight request',
+      formMessage: 'Message',
+      formMessagePlaceholder: 'Write your message or inquiry here...',
+      formSubmit: 'Send Message',
+      formSubmitting: 'Sending...',
+      successTitle: 'Message Sent Successfully',
+      successMessage: 'Thank you for contacting ODST Airlines. We will respond to you shortly.',
       backToHome: 'Back to Home',
+      mapBadge: 'OUR LOCATION ON THE MAP',
+      mapTitle: 'Office Location',
+      mapSubtitle: 'ODST Airlines Head Office — Graha Al Badgel, South Jakarta',
+      openInMaps: 'Open in Google Maps',
     },
   },
 
@@ -676,49 +647,39 @@ export const TRANSLATIONS: Record<Language, TranslationData> = {
       toastDesc: 'Terima kasih, Anda akan menjadi yang pertama mendapatkan kabar peluncuran tiket ODST Airlines.',
     },
     contactPage: {
-      badge: 'Layanan Kontak & Operasional Penerbangan',
+      badge: 'Aviation & Charter',
       heroTitle: 'Hubungi ODST Airlines',
-      heroTitleLine1: 'Terhubung Langsung dengan',
-      heroTitleLine2: 'Tim ODST Airlines',
-      heroSubtitle: 'Kami siap melayani kebutuhan penerbangan carter, alokasi grup Haji & Umrah, kemitraan agen perjalanan, serta informasi rute penerbangan Indonesia - Arab Saudi.',
-      hubsTitle: 'Kantor & Pusat Operasional',
-      hubsSubtitle: 'Pusat layanan strategis kami untuk mendukung kelancaran penerbangan di Indonesia dan Arab Saudi.',
-      jakartaTitle: 'Pusat Operasional Jakarta — Indonesia',
-      jakartaAddress: 'Jakarta, Indonesia — Koridor Operasional & Penghubung Bandara Soekarno-Hatta',
-      jakartaRole: 'Kantor Komersial & Operasional Penerbangan Indonesia',
-      saudiTitle: 'Pusat Madinah & Jeddah — Arab Saudi',
-      saudiAddress: 'Madinah Al-Munawwarah & Jeddah, Arab Saudi — Pusat Manazil Al Mukhtara Group',
-      saudiRole: 'Kantor Pusat Kerajaan & Koordinasi Layanan Haji Umrah',
-      flightDeskTitle: 'Meja Layanan Penerbangan & Carter',
-      flightDeskEmail: 'airlines@odst.id',
-      flightDeskPhone: '+62 811-1920-8888',
-      flightDeskHours: 'Dukungan operasional 24/7 selama musim penerbangan aktif',
-      formTitle: 'Formulir Reservasi & Pertanyaan Penerbangan',
-      formSubtitle: 'Kirimkan rincian kebutuhan penerbangan Anda dan tim operasional kami akan segera menghubungi Anda.',
-      formName: 'Nama Lengkap / Instansi / Travel',
-      formNamePlaceholder: 'Contoh: Ahmad Fauzi / PT Wisata Amanah',
+      heroSubtitle: 'Hubungi kami untuk informasi layanan penerbangan, carter pesawat, dan pertanyaan lainnya.',
+      division: 'Aviation & Charter',
+      company: 'ODST Airlines',
+      phoneTitle: 'Telepon',
+      phone: '+62 81111 202220',
+      phoneTel: '+6281111202220',
+      emailTitle: 'Email',
+      email: 'info@odst.id',
+      addressTitle: 'Alamat',
+      address: 'Graha Al Badgel Jl. Hajjah Tutty Alawiyah No.7, RT.2/RW.5, Kalibata, Kec. Pancoran, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta, Indonesia 12740',
+      formTitle: 'Kirim Pesan',
+      formSubtitle: 'Silakan isi formulir di bawah ini dan tim kami akan segera menghubungi Anda.',
+      formName: 'Nama Lengkap',
+      formNamePlaceholder: 'Nama lengkap Anda',
       formEmail: 'Alamat Email',
-      formEmailPlaceholder: 'nama@domain.com',
-      formPhone: 'Nomor Telepon / WhatsApp',
-      formPhonePlaceholder: '+62 ... atau +966 ...',
-      formCategory: 'Kategori Kebutuhan',
-      categories: {
-        charter: 'Layanan Carter Pesawat (Flight Charter)',
-        hajjUmrah: 'Alokasi Grup Jamaah Haji & Umrah',
-        scheduled: 'Informasi Jadwal & Rute Penerbangan',
-        agency: 'Kemitraan Agen Perjalanan & Korporasi',
-        general: 'Pertanyaan Umum Penerbangan',
-      },
-      formMessage: 'Rincian Penerbangan / Pesan',
-      formMessagePlaceholder: 'Sebutkan estimasi jumlah penumpang, rute yang diinginkan (Jakarta - Jeddah / Madinah), perkiraan tanggal, dsb...',
-      formSubmit: 'Kirim Permintaan Informasi',
+      formEmailPlaceholder: 'name@example.com',
+      formPhone: 'Nomor Telepon',
+      formPhonePlaceholder: '+62 ...',
+      formSubject: 'Subjek',
+      formSubjectPlaceholder: 'Subjek pesan atau layanan yang diinginkan',
+      formMessage: 'Pesan',
+      formMessagePlaceholder: 'Tuliskan pesan atau pertanyaan Anda di sini...',
+      formSubmit: 'Kirim Pesan',
       formSubmitting: 'Mengirimkan...',
       successTitle: 'Pesan Berhasil Terkirim',
-      successMessage: 'Terima kasih telah menghubungi ODST Airlines. Tim operasional kami akan segera merespons Anda.',
-      directChat: 'Layanan Cepat via WhatsApp',
-      directChatSub: 'Hubungi tim representatif ODST Airlines secara instan melalui WhatsApp.',
-      whatsappButton: 'Chat via WhatsApp',
+      successMessage: 'Terima kasih telah menghubungi ODST Airlines. Tim kami akan segera merespons Anda.',
       backToHome: 'Kembali ke Beranda',
+      mapBadge: 'LOKASI KAMI DI PETA',
+      mapTitle: 'Lokasi Kantor',
+      mapSubtitle: 'Kantor Pusat ODST Airlines — Graha Al Badgel, Jakarta Selatan',
+      openInMaps: 'Buka di Google Maps',
     },
   },
 };

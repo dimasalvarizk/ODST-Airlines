@@ -1,31 +1,99 @@
-version: '3.8'
-
 services:
+  # ===================================================
+  # MySQL Database Service (Dockerized MySQL for ODST)
+  # Host port mapped to 3307 to avoid conflicts with host MySQL
+  # ===================================================
+  mysql:
+    image: mysql:8.0
+    container_name: odstairlines-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3307:3306"
+    volumes:
+      - odst_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p$$MYSQL_ROOT_PASSWORD || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    networks:
+      - odst-network
+
+  # ===================================================
+  # Backend API Service (Express + MySQL + JWT + Audit)
+  # ===================================================
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: odstairlines-backend
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - NODE_ENV=production
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRES_IN=${JWT_EXPIRES_IN:-7d}
+      - ADMIN_DEFAULT_EMAIL=${ADMIN_DEFAULT_EMAIL}
+      - ADMIN_DEFAULT_USERNAME=${ADMIN_DEFAULT_USERNAME}
+      - ADMIN_DEFAULT_PASSWORD=${ADMIN_DEFAULT_PASSWORD}
+      - CORS_ORIGIN=*
+    depends_on:
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O - http://127.0.0.1:5000/health || exit 1"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    networks:
+      - odst-network
+
+  # ===================================================
+  # Frontend Application (Vite React + Admin Dashboard)
+  # ===================================================
   frontend:
     build:
       context: ./odstairlines-frontend
       dockerfile: Dockerfile
     container_name: odstairlines-frontend
     restart: unless-stopped
-    expose:
-      - "3000"
-    networks:
-      - coolify
-      - default
+    ports:
+      - "3000:3000"
     environment:
       - PORT=3000
+      - VITE_API_URL=http://backend:5000
       - MAILCHIMP_API_KEY=${MAILCHIMP_API_KEY:-}
       - MAILCHIMP_SERVER_PREFIX=${MAILCHIMP_SERVER_PREFIX:-us11}
       - MAILCHIMP_AUDIENCE_ID=${MAILCHIMP_AUDIENCE_ID:-}
+    depends_on:
+      - backend
     healthcheck:
       test: ["CMD-SHELL", "wget -q -O - http://127.0.0.1:3000/health || exit 1"]
       interval: 30s
       timeout: 5s
       retries: 3
       start_period: 5s
+    networks:
+      - odst-network
+
+volumes:
+  odst_mysql_data:
+    driver: local
 
 networks:
-  coolify:
-    external: true
-  default:
-
+  odst-network:
+    driver: bridge

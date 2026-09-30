@@ -1,7 +1,7 @@
 services:
   # ===================================================
   # MySQL Database Service (Dockerized MySQL for ODST)
-  # Host port mapped to 3307 to avoid conflicts with host MySQL
+  # Communicates securely inside odst-network (port 3306)
   # ===================================================
   mysql:
     image: mysql:8.0
@@ -12,8 +12,8 @@ services:
       MYSQL_DATABASE: ${DB_NAME}
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASSWORD}
-    ports:
-      - "3307:3306"
+    expose:
+      - "3306"
     volumes:
       - odst_mysql_data:/var/lib/mysql
     healthcheck:
@@ -27,6 +27,7 @@ services:
 
   # ===================================================
   # Backend API Service (Express + MySQL + JWT + Audit)
+  # Communicates internally with frontend via odst-network
   # ===================================================
   backend:
     build:
@@ -34,8 +35,8 @@ services:
       dockerfile: Dockerfile
     container_name: odstairlines-backend
     restart: unless-stopped
-    ports:
-      - "5000:5000"
+    expose:
+      - "5000"
     environment:
       - PORT=5000
       - NODE_ENV=production
@@ -72,7 +73,7 @@ services:
     container_name: odstairlines-frontend
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "${FRONTEND_PORT:-3000}:3000"
     environment:
       - PORT=3000
       - VITE_API_URL=http://backend:5000

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Check, ChevronDown } from 'lucide-react';
 import type { AdminLanguage } from '../../data/adminTranslations';
 import { IndonesiaFlag, UKFlag, SaudiFlag } from '../common/Flags';
@@ -43,10 +43,30 @@ export const AdminLanguageSwitcher: React.FC<AdminLanguageSwitcherProps> = ({
   className = '',
 }) => {
   const [open, setOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const currentOption =
     ADMIN_LANGUAGE_CONFIG.find((l) => l.code === currentLang) || ADMIN_LANGUAGE_CONFIG[0];
   const ActiveFlag = currentOption.FlagComponent;
+
+  // Handle outside click cleanly without full-screen backdrops
+  useEffect(() => {
+    if (!open) return;
+
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [open]);
 
   const handleSelect = (code: AdminLanguage) => {
     onChangeLang(code);
@@ -54,7 +74,7 @@ export const AdminLanguageSwitcher: React.FC<AdminLanguageSwitcherProps> = ({
   };
 
   return (
-    <div className={`relative inline-block text-left ${className}`}>
+    <div ref={containerRef} className={`relative inline-block text-left ${className}`}>
       {/* Trigger Button */}
       <button
         type="button"
@@ -78,56 +98,47 @@ export const AdminLanguageSwitcher: React.FC<AdminLanguageSwitcherProps> = ({
         />
       </button>
 
-      {/* Popover Dropdown with Backdrop Overlay */}
+      {/* Popover Dropdown Menu */}
       {open && (
-        <>
-          {/* Backdrop overlay for reliable outside click */}
-          <div
-            className="fixed inset-0 z-40"
-            onClick={() => setOpen(false)}
-          />
+        <div
+          className="absolute right-0 mt-1.5 w-44 rounded-xl bg-[#0E1538] border border-white/15 shadow-2xl shadow-black/80 p-1 z-50 animate-in fade-in zoom-in-95 duration-100"
+          role="listbox"
+        >
+          <div className="space-y-0.5">
+            {ADMIN_LANGUAGE_CONFIG.map((lang) => {
+              const ItemFlag = lang.FlagComponent;
+              const isSelected = currentLang === lang.code;
 
-          {/* Menu Card */}
-          <div
-            className="absolute right-0 mt-1.5 w-44 rounded-xl bg-[#0E1538] border border-white/15 shadow-2xl shadow-black/80 p-1 z-50 animate-in fade-in zoom-in-95 duration-100"
-            role="listbox"
-          >
-            <div className="space-y-0.5">
-              {ADMIN_LANGUAGE_CONFIG.map((lang) => {
-                const ItemFlag = lang.FlagComponent;
-                const isSelected = currentLang === lang.code;
+              return (
+                <button
+                  key={lang.code}
+                  type="button"
+                  role="option"
+                  aria-selected={isSelected}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleSelect(lang.code);
+                  }}
+                  className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition-colors cursor-pointer text-left select-none ${
+                    isSelected
+                      ? 'bg-white/10 text-white font-semibold'
+                      : 'text-slate-300 hover:bg-white/5 hover:text-white'
+                  }`}
+                >
+                  <span className="flex items-center gap-2.5 pointer-events-none">
+                    <ItemFlag className="w-4 h-2.5" />
+                    <span>{lang.label}</span>
+                  </span>
 
-                return (
-                  <button
-                    key={lang.code}
-                    type="button"
-                    role="option"
-                    aria-selected={isSelected}
-                    onClick={() => handleSelect(lang.code)}
-                    onMouseDown={(e) => {
-                      e.preventDefault();
-                      handleSelect(lang.code);
-                    }}
-                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition-colors cursor-pointer text-left select-none ${
-                      isSelected
-                        ? 'bg-white/10 text-white font-semibold'
-                        : 'text-slate-300 hover:bg-white/5 hover:text-white'
-                    }`}
-                  >
-                    <span className="flex items-center gap-2.5 pointer-events-none">
-                      <ItemFlag className="w-4 h-2.5" />
-                      <span>{lang.label}</span>
-                    </span>
-
-                    {isSelected && (
-                      <Check className="w-3.5 h-3.5 text-[#E87729] stroke-[2.5] pointer-events-none" />
-                    )}
-                  </button>
-                );
-              })}
-            </div>
+                  {isSelected && (
+                    <Check className="w-3.5 h-3.5 text-[#E87729] stroke-[2.5] pointer-events-none" />
+                  )}
+                </button>
+              );
+            })}
           </div>
-        </>
+        </div>
       )}
     </div>
   );

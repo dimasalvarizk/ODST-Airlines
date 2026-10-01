@@ -85,14 +85,14 @@ export const FooterSection: React.FC<FooterSectionProps> = ({ currentPage = 'lan
               </button>
 
               {/* 2-Line About Text */}
-              <div className="font-noto-arabic font-normal text-white/90 text-sm sm:text-[15px] leading-[1.75] max-w-md space-y-0.5">
+              <div className="font-noto-arabic font-normal text-white/90 text-sm sm:text-[15px] leading-[1.8] max-w-md space-y-1 text-justify">
                 {t.footer.aboutLine1 ? (
                   <>
-                    <p className="whitespace-normal">{t.footer.aboutLine1}</p>
-                    <p className="whitespace-normal">{t.footer.aboutLine2}</p>
+                    <p className="whitespace-normal leading-[1.8] text-justify">{t.footer.aboutLine1}</p>
+                    <p className="whitespace-normal leading-[1.8] text-justify">{t.footer.aboutLine2}</p>
                   </>
                 ) : (
-                  <p>{t.footer.aboutText}</p>
+                  <p className="leading-[1.8] text-justify">{t.footer.aboutText}</p>
                 )}
               </div>
 

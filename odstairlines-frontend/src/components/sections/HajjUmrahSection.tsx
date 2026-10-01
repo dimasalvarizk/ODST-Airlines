@@ -30,20 +30,20 @@ export const HajjUmrahSection: React.FC = () => {
               <span>{t.pilgrimage.label}</span>
             </div>
 
-            {/* Main 2-Line Heading with Noto Sans Arabic Font (Regular / Not Bold) */}
-            <h2 className="font-noto-arabic font-normal text-2xl sm:text-3xl md:text-[36px] lg:text-[44px] xl:text-[48px] text-[#242E69] leading-[1.45] tracking-tight">
+            {/* Main 2-Line Heading with Noto Sans Arabic Font */}
+            <h2 className="font-noto-arabic font-normal text-2xl sm:text-3xl md:text-[36px] lg:text-[44px] xl:text-[48px] text-[#242E69] leading-[1.35] sm:leading-[1.4] tracking-tight text-balance">
               <span className="block">
                 {t.pilgrimage.titleLine1 || t.pilgrimage.title}
               </span>
               {t.pilgrimage.titleLine2 && (
-                <span className="block mt-2 sm:mt-2.5 md:mt-3">
+                <span className="block mt-1.5 sm:mt-2 md:mt-2.5">
                   {t.pilgrimage.titleLine2}
                 </span>
               )}
             </h2>
 
             {/* Description Paragraph with Noto Sans Arabic */}
-            <p className="font-noto-arabic font-normal text-sm sm:text-base md:text-[15.5px] text-[#64748B] leading-[1.8] max-w-xl">
+            <p className="font-noto-arabic font-normal text-sm sm:text-base md:text-[15.5px] text-[#64748B] leading-[1.8] max-w-xl text-justify">
               {t.pilgrimage.description}
             </p>
 

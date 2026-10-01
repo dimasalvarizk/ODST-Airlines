@@ -119,27 +119,28 @@ export const LaunchCountdownSection: React.FC<LaunchCountdownSectionProps> = () 
           </div>
 
           {/* Main Title */}
-          <h2 className="font-noto-arabic font-normal text-2xl sm:text-3xl md:text-[36px] lg:text-[46px] text-white leading-[1.3] tracking-tight px-2">
+          <h2 className="font-noto-arabic font-normal text-2xl sm:text-3xl md:text-[36px] lg:text-[46px] text-white leading-[1.3] tracking-tight px-2 text-balance">
             {displayTitle}
           </h2>
 
           {/* Subtitle */}
-          <p className="font-noto-arabic font-normal text-xs sm:text-sm md:text-base text-white/80 max-w-xl mx-auto leading-relaxed">
+          <p className="font-noto-arabic font-normal text-xs sm:text-sm md:text-base text-white/80 max-w-xl mx-auto leading-relaxed text-balance">
             {displayDesc}
           </p>
         </ScrollReveal>
 
         {/* 4 Time Units Grid */}
-        <div className="flex flex-wrap items-center justify-center gap-3.5 sm:gap-5 md:gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-2 min-[480px]:grid-cols-4 gap-3 sm:gap-4 md:gap-6 max-w-xs min-[480px]:max-w-xl sm:max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto">
           {timeUnits.map((unit, idx) => (
             <ScrollReveal
               key={idx}
               animation="zoom-in"
               delay={idx * 100}
               duration={750}
+              className="h-full"
             >
               <div
-                className="w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 rounded-2xl sm:rounded-[24px] bg-white/[0.06] border border-white/10 shadow-md flex flex-col items-center justify-center gap-2.5 sm:gap-3 transition-colors hover:bg-white/[0.1] hover:border-white/20"
+                className="w-full aspect-square sm:aspect-auto sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 rounded-2xl sm:rounded-[24px] bg-white/[0.06] border border-white/10 shadow-md flex flex-col items-center justify-center gap-1.5 sm:gap-2.5 md:gap-3 transition-colors hover:bg-white/[0.1] hover:border-white/20 p-2 sm:p-4 mx-auto"
               >
                 <span className="text-2xl sm:text-3xl md:text-4xl text-white font-mono font-bold select-none">
                   {unit.value}

@@ -107,7 +107,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage = 'landing', onNavig
           : 'bg-transparent pt-6 sm:pt-8 md:pt-9 lg:pt-10 pb-3 sm:pb-4'
       }`}
     >
-      <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-8 md:px-10 lg:px-14 flex items-center justify-between relative">
+      <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-14 flex items-center justify-between relative">
         {/* 1. Brand Logo (Start Side) */}
         <div className="flex items-center shrink-0 z-10">
           <button
@@ -118,19 +118,19 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage = 'landing', onNavig
             <img
               src={odstLogo}
               alt="ODST Airlines Logo"
-              className="h-10 sm:h-12 md:h-13 lg:h-14 w-auto object-contain group-hover:scale-105 transition-transform drop-shadow-sm"
+              className="h-9 sm:h-11 md:h-12 lg:h-14 w-auto object-contain group-hover:scale-105 transition-transform drop-shadow-sm"
             />
           </button>
         </div>
 
         {/* 2. Desktop Navigation Links (Tepat di Tengah / Centered in the middle) */}
-        <nav className="hidden lg:flex items-center justify-center gap-6 lg:gap-8 xl:gap-10 absolute left-1/2 -translate-x-1/2 font-noto-arabic pointer-events-auto">
+        <nav className="hidden lg:flex items-center justify-center gap-4 lg:gap-6 xl:gap-8 2xl:gap-10 absolute left-1/2 -translate-x-1/2 font-noto-arabic pointer-events-auto">
           {navItems.map((item) => (
             item.href ? (
               <a
                 key={item.label}
                 href={item.href}
-                className="text-white hover:text-[#E87729] text-sm lg:text-[15px] font-medium tracking-wide transition-colors drop-shadow-sm whitespace-nowrap cursor-pointer font-noto-arabic"
+                className="text-white hover:text-[#E87729] text-xs lg:text-sm xl:text-[15px] font-medium tracking-wide transition-colors drop-shadow-sm whitespace-nowrap cursor-pointer font-noto-arabic"
               >
                 {item.label}
               </a>
@@ -138,7 +138,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage = 'landing', onNavig
               <button
                 key={item.label}
                 onClick={(e) => handleNavClick(e, item.targetId)}
-                className="text-white hover:text-[#E87729] text-sm lg:text-[15px] font-medium tracking-wide transition-colors drop-shadow-sm whitespace-nowrap cursor-pointer font-noto-arabic"
+                className="text-white hover:text-[#E87729] text-xs lg:text-sm xl:text-[15px] font-medium tracking-wide transition-colors drop-shadow-sm whitespace-nowrap cursor-pointer font-noto-arabic"
               >
                 {item.label}
               </button>
@@ -147,18 +147,18 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage = 'landing', onNavig
         </nav>
 
         {/* 3. Language Switcher Pill & Mobile Drawer Toggle (End Side) */}
-        <div className="flex items-center gap-3 shrink-0 z-10">
+        <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 z-10">
           <div className="relative font-noto-arabic">
             <button
               onClick={() => setLangDropdownOpen(!langDropdownOpen)}
               dir="ltr"
-              className="flex flex-row items-center gap-2 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white hover:bg-slate-50 text-[#1E285F] text-xs sm:text-sm font-bold shadow-md transition-all active:scale-95 font-sans cursor-pointer"
+              className="flex flex-row items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white hover:bg-slate-50 text-[#1E285F] text-xs sm:text-sm font-bold shadow-md transition-all active:scale-95 font-sans cursor-pointer"
               aria-label="Switch Language"
             >
               <img
                 src={languageIcon}
                 alt="Language"
-                className="w-4 h-4 sm:w-4.5 sm:h-4.5 object-contain select-none shrink-0"
+                className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-4.5 lg:h-4.5 object-contain select-none shrink-0"
               />
               <span className="font-bold tracking-wide text-[#1E285F]">
                 {language.toUpperCase()}
@@ -173,7 +173,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage = 'landing', onNavig
                   onClick={() => setLangDropdownOpen(false)}
                 />
                 <div
-                  className={`absolute top-full mt-3 w-52 sm:w-56 rounded-2xl bg-white text-[#242E69] shadow-[0_20px_50px_rgba(0,0,0,0.35)] border border-slate-200/90 p-2 z-50 animate-in fade-in zoom-in-95 duration-150 font-noto-arabic ${
+                  className={`absolute top-full mt-3 w-48 sm:w-56 rounded-2xl bg-white text-[#242E69] shadow-[0_20px_50px_rgba(0,0,0,0.35)] border border-slate-200/90 p-2 z-50 animate-in fade-in zoom-in-95 duration-150 font-noto-arabic ${
                     isRTL ? 'left-0' : 'right-0'
                   }`}
                 >
@@ -185,7 +185,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage = 'landing', onNavig
                           setLanguage(item.code);
                           setLangDropdownOpen(false);
                         }}
-                        className={`w-full flex items-center justify-between px-3.5 py-2.5 text-xs sm:text-sm rounded-xl transition-all cursor-pointer font-bold ${
+                        className={`w-full flex items-center justify-between px-3 py-2 sm:px-3.5 sm:py-2.5 text-xs sm:text-sm rounded-xl transition-all cursor-pointer font-bold ${
                           language === item.code
                             ? 'bg-[#FFF4EC] text-[#E87729] font-extrabold shadow-sm'
                             : 'text-[#242E69] hover:bg-slate-100/90 font-semibold'
@@ -193,7 +193,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage = 'landing', onNavig
                       >
                         <span className="flex items-center gap-2.5">
                           {item.flag}
-                          <span className="text-[13px] sm:text-sm">{item.label}</span>
+                          <span className="text-xs sm:text-sm">{item.label}</span>
                         </span>
                         {language === item.code && (
                           <Check className="w-4 h-4 text-[#E87729] shrink-0 stroke-[2.5]" />
@@ -219,7 +219,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage = 'landing', onNavig
 
       {/* Mobile & Tablet Navigation Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-4 right-4 mt-2 z-50 bg-[#131B45]/98 backdrop-blur-2xl rounded-2xl p-6 border border-white/20 shadow-2xl animate-in slide-in-from-top-3 space-y-5 font-noto-arabic">
+        <div className="lg:hidden absolute top-full left-3 right-3 sm:left-4 sm:right-4 mt-2 z-50 bg-[#131B45]/98 backdrop-blur-2xl rounded-2xl p-5 sm:p-6 border border-white/20 shadow-2xl animate-in slide-in-from-top-3 space-y-4 sm:space-y-5 font-noto-arabic max-h-[calc(100vh-5rem)] overflow-y-auto">
           <div className="flex flex-col space-y-3 font-noto-arabic text-start">
             {navItems.map((item) => (
               item.href ? (

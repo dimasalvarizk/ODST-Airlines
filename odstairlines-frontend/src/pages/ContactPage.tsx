@@ -166,10 +166,10 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
               <span>{t.contactPage.badge}</span>
               <span className="w-4 h-[1.5px] bg-[#E87729]"></span>
             </p>
-            <h1 className="font-kufam font-bold text-3xl sm:text-4xl md:text-5xl text-white tracking-tight drop-shadow-lg">
+            <h1 className="font-kufam font-bold text-3xl sm:text-4xl md:text-5xl text-white tracking-tight drop-shadow-lg text-balance">
               {t.contactPage.heroTitle}
             </h1>
-            <p className="font-noto-arabic text-sm sm:text-base text-slate-100 leading-relaxed max-w-2xl mx-auto drop-shadow-md">
+            <p className="font-noto-arabic text-sm sm:text-base text-slate-100 leading-relaxed max-w-2xl mx-auto drop-shadow-md text-balance">
               {t.contactPage.heroSubtitle}
             </p>
           </div>

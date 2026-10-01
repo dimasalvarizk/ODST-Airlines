@@ -40,16 +40,16 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     document.documentElement.lang = language;
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
 
-    document.title = 'ODST Airlines';
+    document.title = 'ODST AIRLINES INDO INDONESIA';
 
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       if (language === 'id') {
-        metaDescription.setAttribute('content', 'ODST Airlines Indonesia — Visi penerbangan modern yang menghubungkan Indonesia dan Kerajaan Arab Saudi. Dedikasi khusus kenyamanan perjalanan Haji & Umrah.');
+        metaDescription.setAttribute('content', 'ODST AIRLINES INDO INDONESIA — Lini usaha terbaru dari Manazil Al Mukhtara Group yang terkemuka dari Arab Saudi, siap mendefinisikan ulang perjalanan udara Haji dan Umrah.');
       } else if (language === 'ar') {
-        metaDescription.setAttribute('content', 'أوديست إيرلاينز إندونيسيا — رؤية طيران حديثة تقرّب المسافات بين إندونيسيا والمملكة العربية السعودية، مع عناية خاصة برحلات الحج والعمرة.');
+        metaDescription.setAttribute('content', 'أوديست إيرلاينز إندو إندونيسيا — أحدث قطاعات الأعمال التابعة لمجموعة منازل المختارة الرائدة بالمملكة العربية السعودية لخدمات رحلات الحج والعمرة.');
       } else {
-        metaDescription.setAttribute('content', 'ODST Airlines Indonesia — A modern aviation vision bridging Indonesia and Saudi Arabia with dedicated care for Hajj & Umrah journeys.');
+        metaDescription.setAttribute('content', 'ODST AIRLINES INDO INDONESIA — The latest business venture from Saudi Arabia’s renowned Manazil Al Mukhtara Group, redefining Hajj and Umrah air travel.');
       }
     }
   }, [language]);

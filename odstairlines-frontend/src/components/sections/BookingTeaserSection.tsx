@@ -33,27 +33,27 @@ export const BookingTeaserSection: React.FC<BookingTeaserSectionProps> = ({ onLe
             <span>{t.bookingTeaser.label}</span>
           </div>
 
-          {/* Main 2-Line Heading with Noto Sans Arabic Font (Regular / Not Bold) */}
-          <h2 className="font-noto-arabic font-normal text-2xl sm:text-3xl md:text-[38px] lg:text-[46px] text-[#242E69] leading-[1.45] sm:leading-[1.5] tracking-tight">
+          {/* Main 2-Line Heading with Noto Sans Arabic Font */}
+          <h2 className="font-noto-arabic font-normal text-2xl sm:text-3xl md:text-[38px] lg:text-[46px] text-[#242E69] leading-[1.35] sm:leading-[1.4] tracking-tight text-balance">
             <span className="block whitespace-normal">
               {t.bookingTeaser.titleLine1 || t.bookingTeaser.title}
             </span>
             {t.bookingTeaser.titleLine2 && (
-              <span className="block mt-2 sm:mt-2.5 md:mt-3 whitespace-normal">
+              <span className="block mt-1.5 sm:mt-2 md:mt-2.5 whitespace-normal">
                 {t.bookingTeaser.titleLine2}
               </span>
             )}
           </h2>
 
-          {/* Description Paragraph with Noto Sans Arabic (Strictly 2 Lines) */}
-          <div className="text-[#64748B] text-xs sm:text-sm md:text-[15px] leading-[1.75] font-normal font-noto-arabic max-w-2xl space-y-0.5">
+          {/* Description Paragraph with Noto Sans Arabic */}
+          <div className="text-[#64748B] text-xs sm:text-sm md:text-[15px] leading-[1.8] font-normal font-noto-arabic max-w-2xl space-y-1 text-justify">
             {t.bookingTeaser.descLine1 ? (
               <>
-                <p className="whitespace-normal">{t.bookingTeaser.descLine1}</p>
-                <p className="whitespace-normal">{t.bookingTeaser.descLine2}</p>
+                <p className="whitespace-normal leading-[1.8] text-justify">{t.bookingTeaser.descLine1}</p>
+                <p className="whitespace-normal leading-[1.8] text-justify">{t.bookingTeaser.descLine2}</p>
               </>
             ) : (
-              <p>{t.bookingTeaser.description}</p>
+              <p className="leading-[1.8] text-justify">{t.bookingTeaser.description}</p>
             )}
           </div>
 

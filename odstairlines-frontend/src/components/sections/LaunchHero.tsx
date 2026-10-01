@@ -15,10 +15,10 @@ export const LaunchHero: React.FC<LaunchHeroProps> = ({ onExploreVision, onFollo
 
   return (
     <div className="w-full px-1.5 sm:px-2.5 md:px-3 lg:px-3.5 pt-1.5 sm:pt-2 pb-1.5 sm:pb-2 max-w-full mx-auto">
-      {/* Outer Hero Card - Viewport-Aware Responsive Height for Laptop & Monitor */}
+      {/* Outer Hero Card - Viewport-Aware Responsive Height for Laptop, Tablet & Mobile */}
       <section
         id="home"
-        className="relative rounded-[20px] sm:rounded-[28px] md:rounded-[36px] lg:rounded-[40px] overflow-hidden min-h-[520px] sm:min-h-[560px] md:min-h-[600px] h-[calc(100dvh-0.75rem)] sm:h-[calc(100dvh-1rem)] max-h-[920px] 2xl:max-h-[980px] flex flex-col justify-between p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 shadow-2xl border border-white/20 transition-all duration-300 pt-24 sm:pt-28 md:pt-32 lg:pt-36 xl:pt-40"
+        className="relative rounded-[20px] sm:rounded-[28px] md:rounded-[36px] lg:rounded-[40px] overflow-hidden min-h-[540px] sm:min-h-[580px] md:min-h-[640px] lg:min-h-[700px] h-auto lg:h-[calc(100dvh-1rem)] max-h-none lg:max-h-[920px] 2xl:max-h-[980px] flex flex-col justify-between p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 shadow-2xl border border-white/20 transition-all duration-300 pt-20 sm:pt-24 md:pt-28 lg:pt-36 xl:pt-40 pb-6 sm:pb-8"
       >
         {/* Real Aircraft Background Image */}
         <div className="absolute inset-0 z-0">
@@ -36,7 +36,7 @@ export const LaunchHero: React.FC<LaunchHeroProps> = ({ onExploreVision, onFollo
         <ScrollReveal
           animation="fade-up"
           duration={900}
-          className="relative z-10 my-auto py-2 sm:py-3 md:py-4 lg:py-6 text-center max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto space-y-2.5 sm:space-y-3.5 md:space-y-4 xl:space-y-5 px-2 sm:px-4"
+          className="relative z-10 my-auto py-3 sm:py-5 md:py-6 lg:py-8 text-center max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto space-y-3 sm:space-y-4 md:space-y-4.5 xl:space-y-5 px-2 sm:px-4"
         >
           {/* Section Pre-title */}
           <div className="inline-flex items-center justify-center gap-2 sm:gap-2.5 md:gap-3">
@@ -48,7 +48,7 @@ export const LaunchHero: React.FC<LaunchHeroProps> = ({ onExploreVision, onFollo
           </div>
 
           {/* Big Headline - Scaled proportionally for all screen widths */}
-          <h1 className="font-kufam font-black text-2xl sm:text-3xl md:text-[34px] lg:text-[42px] xl:text-[48px] 2xl:text-[54px] text-white leading-[1.32] md:leading-[1.28] drop-shadow-md">
+          <h1 className="font-kufam font-black text-2xl sm:text-3xl md:text-[34px] lg:text-[42px] xl:text-[48px] 2xl:text-[54px] text-white leading-[1.32] md:leading-[1.28] drop-shadow-md text-balance">
             <span className="block">
               {t.hero.headlinePre}
               <span className="text-[#E87729] inline-block font-black mx-1">{t.hero.headlineHighlight}</span>
@@ -62,28 +62,28 @@ export const LaunchHero: React.FC<LaunchHeroProps> = ({ onExploreVision, onFollo
           </h1>
 
           {/* Subtitle Paragraph */}
-          <p className="font-noto-arabic text-white/95 text-xs sm:text-sm md:text-base lg:text-[17px] font-normal sm:font-medium max-w-xl sm:max-w-2xl lg:max-w-3xl xl:max-w-4xl mx-auto leading-relaxed drop-shadow-md px-2">
+          <p className="font-noto-arabic text-white/95 text-xs sm:text-sm md:text-base lg:text-[16.5px] font-normal sm:font-medium max-w-xl sm:max-w-2xl lg:max-w-3xl xl:max-w-4xl mx-auto leading-relaxed drop-shadow-md px-2 text-balance">
             {t.hero.intro}
           </p>
 
           {/* Hero Action Buttons */}
-          <div className="pt-2 sm:pt-3 md:pt-4 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5 md:gap-4">
+          <div className="pt-2 sm:pt-3 md:pt-4 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3.5 md:gap-4 w-full sm:w-auto">
             {/* Solid Orange Primary Button */}
             <button
               onClick={onExploreVision}
-              className="px-5 sm:px-7 md:px-8 xl:px-9 py-2.5 sm:py-3 md:py-3.5 rounded-full font-bold text-xs sm:text-sm text-white bg-[#E87729] hover:bg-[#D5681E] shadow-xl shadow-[#E87729]/35 flex items-center gap-2 sm:gap-2.5 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+              className="w-full sm:w-auto justify-center px-6 sm:px-7 md:px-8 xl:px-9 py-2.5 sm:py-3 md:py-3.5 rounded-full font-bold text-xs sm:text-sm text-white bg-[#E87729] hover:bg-[#D5681E] shadow-xl shadow-[#E87729]/35 flex items-center gap-2 sm:gap-2.5 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
             >
               <span>{t.hero.actionExplore}</span>
-              {isRTL ? <ArrowLeft className="w-4 h-4 text-white" /> : <ArrowRight className="w-4 h-4 text-white" />}
+              {isRTL ? <ArrowLeft className="w-4 h-4 text-white shrink-0" /> : <ArrowRight className="w-4 h-4 text-white shrink-0" />}
             </button>
 
             {/* White Secondary Button */}
             <button
               onClick={onFollowNews}
-              className="px-5 sm:px-7 md:px-8 xl:px-9 py-2.5 sm:py-3 md:py-3.5 rounded-full font-bold text-xs sm:text-sm text-[#242E69] bg-white hover:bg-slate-100 shadow-xl flex items-center gap-2 sm:gap-2.5 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+              className="w-full sm:w-auto justify-center px-6 sm:px-7 md:px-8 xl:px-9 py-2.5 sm:py-3 md:py-3.5 rounded-full font-bold text-xs sm:text-sm text-[#242E69] bg-white hover:bg-slate-100 shadow-xl flex items-center gap-2 sm:gap-2.5 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
             >
               <span>{t.hero.actionNews}</span>
-              {isRTL ? <ArrowLeft className="w-4 h-4 text-[#242E69]" /> : <ArrowRight className="w-4 h-4 text-[#242E69]" />}
+              {isRTL ? <ArrowLeft className="w-4 h-4 text-[#242E69] shrink-0" /> : <ArrowRight className="w-4 h-4 text-[#242E69] shrink-0" />}
             </button>
           </div>
         </ScrollReveal>

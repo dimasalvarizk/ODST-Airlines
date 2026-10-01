@@ -29,36 +29,36 @@ export const IntroSection: React.FC = () => {
             <span>{t.introSection.label}</span>
           </div>
 
-          {/* Main 2-Line Heading with Noto Sans Arabic Font (Regular / Not Bold) */}
-          <h2 className="font-noto-arabic font-normal text-2xl sm:text-3xl md:text-[36px] lg:text-[42px] xl:text-[48px] text-[#242E69] leading-[1.45] tracking-tight">
+          {/* Main 2-Line Heading with Noto Sans Arabic Font */}
+          <h2 className="font-noto-arabic font-normal text-2xl sm:text-3xl md:text-[36px] lg:text-[42px] xl:text-[48px] text-[#242E69] leading-[1.35] sm:leading-[1.4] tracking-tight text-balance">
             <span className="block whitespace-normal">
               {t.introSection.titleLine1 || t.introSection.title}
             </span>
             {t.introSection.titleLine2 && (
-              <span className="block mt-2 sm:mt-2.5 md:mt-3 whitespace-normal">
+              <span className="block mt-1.5 sm:mt-2 md:mt-2.5 whitespace-normal">
                 {t.introSection.titleLine2}
               </span>
             )}
           </h2>
 
-          {/* Description Paragraph with Noto Sans Arabic (2 Lines matching screenshot) */}
-          <div className="text-[#64748B] text-xs sm:text-sm md:text-[15.5px] leading-[1.75] font-normal font-noto-arabic max-w-2xl space-y-1">
+          {/* Description Paragraph with Noto Sans Arabic */}
+          <div className="text-[#64748B] text-xs sm:text-sm md:text-[15.5px] leading-[1.8] font-normal font-noto-arabic max-w-2xl space-y-2.5 text-justify">
             {t.introSection.descLine1 ? (
               <>
-                <p className="whitespace-normal">
+                <p className="whitespace-normal leading-[1.8] text-justify">
                   {t.introSection.descLine1}
                 </p>
-                <p className="whitespace-normal">
+                <p className="whitespace-normal leading-[1.8] text-justify">
                   {t.introSection.descLine2}
                 </p>
               </>
             ) : (
-              <p>{t.introSection.description}</p>
+              <p className="leading-[1.8] text-justify">{t.introSection.description}</p>
             )}
           </div>
 
           {/* Quote Card with Warm Cream Background & Sparkle Badge on the Right */}
-          <div className="p-4 sm:p-5 rounded-2xl bg-[#FFF7F0] border border-[#FFE8D6]/70 shadow-sm flex items-center justify-between gap-4 max-w-xl">
+          <div className="p-4 sm:p-5 rounded-2xl bg-[#FFF7F0] border border-[#FFE8D6]/70 shadow-sm flex items-center justify-between gap-4 max-w-xl transition-transform hover:scale-[1.005]">
             <div className="w-9 sm:w-10 h-9 sm:h-10 rounded-full bg-[#E87729] flex items-center justify-center text-white shrink-0 shadow-md shadow-[#E87729]/25">
               <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-white fill-white" />
             </div>

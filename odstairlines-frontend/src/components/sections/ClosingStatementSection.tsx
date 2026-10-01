@@ -31,9 +31,8 @@ export const ClosingStatementSection: React.FC<ClosingStatementSectionProps> = (
         duration={900}
         className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center flex flex-col items-center space-y-5 sm:space-y-6 md:space-y-7 py-20 sm:py-28"
       >
-        {/* Top Tagline with subtle horizontal line: — Tujuan Kami Dimulai dari Anda */}
-        <div className="inline-flex items-center justify-center gap-2.5 sm:gap-3 text-white/85 text-xs sm:text-[13px] md:text-sm font-normal tracking-wide">
-          <span className="w-5 sm:w-7 h-[1px] bg-white/70 block"></span>
+        {/* Top Tagline: Tujuan Kami Dimulai dari Anda */}
+        <div className="inline-flex items-center justify-center text-white/85 text-xs sm:text-[13px] md:text-sm font-normal tracking-wide">
           <span>{t.closing.label}</span>
         </div>
 

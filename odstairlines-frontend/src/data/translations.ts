@@ -263,8 +263,8 @@ export const TRANSLATIONS: Record<Language, TranslationData> = {
     },
     closing: {
       label: 'هدفنا يبدأ منكم',
-      statement: 'من إندونيسيا نحو الأراضي المقدسة — رحلة تبدأ بالنية الخالصة وتصل بصدق الإخلاص.',
-      statementLine1: 'من إندونيسيا نحو الأراضي المقدسة —',
+      statement: 'من إندونيسيا نحو الأراضي المقدسة، رحلة تبدأ بالنية الخالصة وتصل بصدق الإخلاص.',
+      statementLine1: 'من إندونيسيا نحو الأراضي المقدسة',
       statementLine2: 'رحلة تبدأ بالنية الخالصة و',
       statementLine3: 'تصل بصدق الإخلاص.',
       action: 'كن أول من يعلم',
@@ -440,8 +440,8 @@ export const TRANSLATIONS: Record<Language, TranslationData> = {
     },
     closing: {
       label: 'Our Purpose Begins with You',
-      statement: 'From Indonesia to the Holy Land — A journey that begins with intention and arrives with sincerity.',
-      statementLine1: 'From Indonesia to the Holy Land —',
+      statement: 'From Indonesia to the Holy Land, a journey that begins with intention and arrives with sincerity.',
+      statementLine1: 'From Indonesia to the Holy Land',
       statementLine2: 'A journey that begins with intention and',
       statementLine3: 'arrives with sincerity.',
       action: 'Be the First to Know',
@@ -617,8 +617,8 @@ export const TRANSLATIONS: Record<Language, TranslationData> = {
     },
     closing: {
       label: 'Tujuan Kami Dimulai dari Anda',
-      statement: 'Dari Indonesia menuju Tanah Suci — Perjalanan yang dimulai dengan niat dan tiba dengan ketulusan.',
-      statementLine1: 'Dari Indonesia menuju Tanah Suci —',
+      statement: 'Dari Indonesia menuju Tanah Suci, perjalanan yang dimulai dengan niat dan tiba dengan ketulusan.',
+      statementLine1: 'Dari Indonesia menuju Tanah Suci',
       statementLine2: 'Perjalanan yang dimulai dengan niat dan',
       statementLine3: 'tiba dengan ketulusan.',
       action: 'Jadilah yang Pertama Mengetahui',

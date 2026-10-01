@@ -40,7 +40,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     document.documentElement.lang = language;
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
 
-    document.title = 'ODST AIRLINES INDO INDONESIA';
+    document.title = 'ODST Airlines';
 
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {

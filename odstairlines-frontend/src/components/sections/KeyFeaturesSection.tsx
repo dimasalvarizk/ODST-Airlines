@@ -12,9 +12,8 @@ export const KeyFeaturesSection: React.FC = () => {
     <section id="services" className="py-16 sm:py-20 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Section Heading - Aligned to Start (Right in RTL, Left in LTR) */}
       <ScrollReveal animation="fade-up" duration={800} className="text-start max-w-3xl mb-12 sm:mb-16 space-y-3.5">
-        {/* Pre-title Label with Line */}
-        <div className="inline-flex items-center gap-2.5 text-[#E87729] text-xs sm:text-sm font-bold font-noto-arabic">
-          <span className="w-7 sm:w-9 h-[2px] bg-[#E87729] rounded-full"></span>
+        {/* Pre-title Label */}
+        <div className="inline-flex items-center text-[#E87729] text-xs sm:text-sm font-bold font-noto-arabic tracking-wide uppercase">
           <span>{t.features.label}</span>
         </div>
 

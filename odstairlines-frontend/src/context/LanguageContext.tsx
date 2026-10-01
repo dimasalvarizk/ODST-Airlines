@@ -45,11 +45,11 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       if (language === 'id') {
-        metaDescription.setAttribute('content', 'ODST Airlines — Lini usaha terbaru dari Manazil Al Mukhtara Group yang terkemuka dari Arab Saudi, siap mendefinisikan ulang perjalanan udara Haji dan Umrah.');
+        metaDescription.setAttribute('content', 'ODST Airlines, lini usaha terbaru dari Manazil Al Mukhtara Group yang terkemuka dari Arab Saudi, siap mendefinisikan ulang perjalanan udara Haji dan Umrah.');
       } else if (language === 'ar') {
-        metaDescription.setAttribute('content', 'أوديست إيرلاينز (ODST Airlines) — أحدث قطاعات الأعمال التابعة لمجموعة منازل المختارة الرائدة بالمملكة العربية السعودية لخدمات رحلات الحج والعمرة.');
+        metaDescription.setAttribute('content', 'أوديست إيرلاينز (ODST Airlines)، أحدث قطاعات الأعمال التابعة لمجموعة منازل المختارة الرائدة بالمملكة العربية السعودية لخدمات رحلات الحج والعمرة.');
       } else {
-        metaDescription.setAttribute('content', 'ODST Airlines — The latest business venture from Saudi Arabia’s renowned Manazil Al Mukhtara Group, redefining Hajj and Umrah air travel.');
+        metaDescription.setAttribute('content', 'ODST Airlines, the latest business venture from Saudi Arabia’s renowned Manazil Al Mukhtara Group, redefining Hajj and Umrah air travel.');
       }
     }
   }, [language]);

@@ -39,12 +39,10 @@ export const LaunchHero: React.FC<LaunchHeroProps> = ({ onExploreVision, onFollo
           className="relative z-10 my-auto py-3 sm:py-5 md:py-6 lg:py-8 text-center max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto space-y-3 sm:space-y-4 md:space-y-4.5 xl:space-y-5 px-2 sm:px-4"
         >
           {/* Section Pre-title */}
-          <div className="inline-flex items-center justify-center gap-2 sm:gap-2.5 md:gap-3">
-            <span className="w-5 sm:w-7 md:w-9 h-[1.5px] bg-[#E87729]"></span>
+          <div className="inline-flex items-center justify-center">
             <span className="text-xs sm:text-xs md:text-sm font-bold text-[#E87729] tracking-widest uppercase font-arabic">
               {t.hero.label}
             </span>
-            <span className="w-5 sm:w-7 md:w-9 h-[1.5px] bg-[#E87729]"></span>
           </div>
 
           {/* Big Headline - Scaled proportionally for all screen widths */}

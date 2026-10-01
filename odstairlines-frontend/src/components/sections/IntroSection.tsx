@@ -23,9 +23,8 @@ export const IntroSection: React.FC = () => {
 
         {/* Left Column in RTL: Text & Quote Box */}
         <ScrollReveal animation="fade-up" delay={150} duration={850} className="w-full lg:w-7/12 space-y-6 text-start">
-          {/* Pre-title Label with Line on the Right: "— مرحباً بكم على متن رؤيتنا" */}
-          <div className="inline-flex items-center gap-2.5 text-[#E87729] text-xs sm:text-sm font-bold font-noto-arabic">
-            <span className="w-7 sm:w-9 h-[2px] bg-[#E87729] rounded-full"></span>
+          {/* Pre-title Label */}
+          <div className="inline-flex items-center text-[#E87729] text-xs sm:text-sm font-bold font-noto-arabic tracking-wide uppercase">
             <span>{t.introSection.label}</span>
           </div>
 

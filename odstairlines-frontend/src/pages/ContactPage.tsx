@@ -416,7 +416,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
               <div className="p-4 rounded-xl bg-white/[0.03] border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-start">
                 <div className="space-y-1">
                   <div className="text-xs font-semibold text-white">
-                    {contactInfo?.company_name || t.contactPage.company} — {contactInfo?.division || t.contactPage.division}
+                    {contactInfo?.company_name || t.contactPage.company} • {contactInfo?.division || t.contactPage.division}
                   </div>
                   <p className="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-2xl">
                     {displayAddress}

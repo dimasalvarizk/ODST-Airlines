@@ -27,9 +27,8 @@ export const BookingTeaserSection: React.FC<BookingTeaserSectionProps> = ({ onLe
 
         {/* Left Column in RTL: Text, Checklist Pills & Action Button */}
         <ScrollReveal animation="fade-up" delay={150} duration={850} className="w-full lg:w-7/12 space-y-6 text-start">
-          {/* Pre-title Label with Line: "— معلومات الحجز" */}
-          <div className="inline-flex items-center gap-2.5 text-[#E87729] text-xs sm:text-sm font-bold font-noto-arabic">
-            <span className="w-7 sm:w-9 h-[2px] bg-[#E87729] rounded-full"></span>
+          {/* Pre-title Label */}
+          <div className="inline-flex items-center text-[#E87729] text-xs sm:text-sm font-bold font-noto-arabic tracking-wide uppercase">
             <span>{t.bookingTeaser.label}</span>
           </div>
 

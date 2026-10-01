@@ -24,9 +24,8 @@ export const HajjUmrahSection: React.FC = () => {
 
           {/* Left Column in RTL: Text Copy & Route Graphic */}
           <ScrollReveal animation="fade-up" delay={150} duration={850} className="w-full lg:w-1/2 space-y-6 text-start">
-            {/* Pre-title Label with Line: "— رحلات ذات معنى" */}
-            <div className="inline-flex items-center gap-2.5 text-[#E87729] text-xs sm:text-sm font-bold font-noto-arabic">
-              <span className="w-7 sm:w-9 h-[2px] bg-[#E87729] rounded-full"></span>
+            {/* Pre-title Label */}
+            <div className="inline-flex items-center text-[#E87729] text-xs sm:text-sm font-bold font-noto-arabic tracking-wide uppercase">
               <span>{t.pilgrimage.label}</span>
             </div>
 

@@ -22,9 +22,8 @@ export const SocialChannelsSection: React.FC = () => {
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center py-16 sm:py-20 md:py-24 space-y-5 sm:space-y-6">
         <ScrollReveal animation="fade-up" duration={850} className="space-y-4 sm:space-y-5">
-          {/* Pre-title Label with Line: "— Tetap Terhubung" */}
-          <div className="inline-flex items-center justify-center gap-2.5 text-white/90 text-xs sm:text-sm font-normal font-noto-arabic">
-            <span className="w-6 sm:w-8 h-[1.5px] bg-white/80 rounded-full"></span>
+          {/* Pre-title Label */}
+          <div className="inline-flex items-center justify-center text-white/90 text-xs sm:text-sm font-semibold font-noto-arabic tracking-wider uppercase">
             <span>{t.social.label}</span>
           </div>
 

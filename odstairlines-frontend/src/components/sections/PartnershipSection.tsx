@@ -16,7 +16,7 @@ export const PartnershipSection: React.FC = () => {
             <div className="rounded-[32px] sm:rounded-[36px] bg-white p-8 sm:p-10 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100/90 max-w-md lg:max-w-none w-full flex items-center justify-center hover:scale-[1.01] transition-transform duration-500">
               <img
                 src={almokhtaraLogo}
-                alt="Al Mokhtara Group — The Hospitality Company"
+                alt="Al Mokhtara Group, The Hospitality Company"
                 className="w-full max-w-[260px] sm:max-w-[300px] h-auto object-contain select-none"
               />
             </div>
@@ -24,9 +24,8 @@ export const PartnershipSection: React.FC = () => {
 
           {/* Left Column in RTL: Text Copy */}
           <ScrollReveal animation="fade-up" delay={150} duration={850} className="w-full lg:w-7/12 space-y-6 text-start">
-            {/* Pre-title Label with Line: "— شراكة محلية موثوقة" */}
-            <div className="inline-flex items-center gap-2.5 text-[#E87729] text-xs sm:text-sm font-bold font-noto-arabic">
-              <span className="w-7 sm:w-9 h-[2px] bg-[#E87729] rounded-full"></span>
+            {/* Pre-title Label */}
+            <div className="inline-flex items-center text-[#E87729] text-xs sm:text-sm font-bold font-noto-arabic tracking-wide uppercase">
               <span>{t.partnership.label}</span>
             </div>
 

@@ -24,10 +24,10 @@ export const LaunchCountdownSection: React.FC<LaunchCountdownSectionProps> = () 
     minutes: string | number;
     seconds: string | number;
   }>({
-    days: '—',
-    hours: '—',
-    minutes: '—',
-    seconds: '—',
+    days: '00',
+    hours: '00',
+    minutes: '00',
+    seconds: '00',
   });
 
   // Fetch live countdown configuration from Backend API
@@ -64,7 +64,7 @@ export const LaunchCountdownSection: React.FC<LaunchCountdownSectionProps> = () 
   // Live real-time tick interval
   useEffect(() => {
     if (!targetDateStr || !isActive) {
-      setTimeLeft({ days: '—', hours: '—', minutes: '—', seconds: '—' });
+      setTimeLeft({ days: '00', hours: '00', minutes: '00', seconds: '00' });
       return;
     }
 
@@ -113,8 +113,7 @@ export const LaunchCountdownSection: React.FC<LaunchCountdownSectionProps> = () 
         {/* Section Heading */}
         <ScrollReveal animation="fade-up" duration={800} className="max-w-3xl mx-auto mb-12 sm:mb-16 space-y-4">
           {/* Pre-title Label */}
-          <div className="inline-flex items-center gap-2.5 text-white/90 text-xs sm:text-sm font-normal font-noto-arabic">
-            <span className="w-6 sm:w-8 h-[1.5px] bg-white/70 rounded-full"></span>
+          <div className="inline-flex items-center justify-center text-white/90 text-xs sm:text-sm font-semibold font-noto-arabic tracking-wider uppercase">
             <span>{displayLabel}</span>
           </div>
 

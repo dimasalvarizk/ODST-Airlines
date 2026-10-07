@@ -59,6 +59,13 @@ export default function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
+  useEffect(() => {
+    // Notify 0ms instant HTML splash screen that React is loaded & mounted
+    if (typeof window !== 'undefined' && typeof (window as any).__ODST_SPLASH_DONE__ === 'function') {
+      (window as any).__ODST_SPLASH_DONE__();
+    }
+  }, []);
+
   const handleNavigate = (page: 'landing' | 'contact' | 'admin', sectionId?: string) => {
     if (page === 'admin') {
       if (authService.isAuthenticated()) {

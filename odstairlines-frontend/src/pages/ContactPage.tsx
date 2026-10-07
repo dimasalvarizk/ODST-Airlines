@@ -18,7 +18,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
   const { t, isRTL } = useLanguage();
   const { showToast } = useToast();
 
-  const [isReady, setIsReady] = useState(false);
+  const [isReady, setIsReady] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -33,9 +33,6 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    const timer = setTimeout(() => {
-      setIsReady(true);
-    }, 2800);
 
     // Fetch official contact info from backend API if available
     const loadContactInfo = async () => {
@@ -49,8 +46,6 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
       }
     };
     loadContactInfo();
-
-    return () => clearTimeout(timer);
   }, []);
 
   const handleSplashComplete = () => {

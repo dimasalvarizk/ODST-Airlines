@@ -100,12 +100,396 @@
     }
     </script>
 
-    <!-- Google Fonts for Arabic & Latin Typography -->
+    <!-- Google Fonts for Arabic & Latin Typography (Non-render-blocking) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=K2D:wght@700;800&family=Kufam:ital,wght@0,400..900;1,400..900&family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=K2D:wght@700;800&family=Kufam:ital,wght@0,400..900;1,400..900&family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=K2D:wght@700;800&family=Kufam:ital,wght@0,400..900;1,400..900&family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=K2D:wght@700;800&family=Kufam:ital,wght@0,400..900;1,400..900&family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" />
+    </noscript>
+
+    <!-- Instant Pre-Hydration Critical Styles: Eliminates ANY White Blank Canvas Flash on Mobile -->
+    <style>
+      html, body {
+        background-color: #080D24 !important;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        min-height: 100%;
+        overflow-x: hidden;
+      }
+      #odst-splash {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        z-index: 9999999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        background: radial-gradient(ellipse at 50% 50%, #121A45 0%, #0A102E 55%, #050818 100%);
+        overflow: hidden;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: none;
+        transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: opacity, transform;
+      }
+      #odst-splash.splash-fading {
+        opacity: 0;
+        transform: scale(1.04);
+        pointer-events: none;
+      }
+      .odst-splash-glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: min(700px, 92vw);
+        height: min(500px, 60vh);
+        border-radius: 9999px;
+        background: rgba(232, 119, 41, 0.12);
+        filter: blur(120px);
+        pointer-events: none;
+      }
+      .odst-splash-canvas-wrap {
+        position: relative;
+        width: 100%;
+        max-width: 860px;
+        padding: 0 1rem;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .odst-splash-svg {
+        width: 100%;
+        height: auto;
+        overflow: visible;
+        filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6));
+      }
+      .odst-splash-brand {
+        margin-top: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.6rem;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+      }
+      .odst-splash-logo-wrap {
+        width: 42px;
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+      .odst-splash-logo {
+        width: 26px;
+        height: auto;
+        object-fit: contain;
+      }
+      .odst-splash-text {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+      }
+      .odst-splash-title {
+        color: #FFFFFF;
+        font-size: 0.82rem;
+        font-weight: 800;
+        letter-spacing: 0.25em;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+      .odst-splash-sub {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.72rem;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+      .odst-splash-progress-track {
+        width: 150px;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: 99px;
+        overflow: hidden;
+        margin-top: 0.4rem;
+      }
+      .odst-splash-progress-bar {
+        width: 0%;
+        height: 100%;
+        background: linear-gradient(90deg, #E87729, #FFA559);
+        border-radius: 99px;
+        box-shadow: 0 0 8px rgba(232, 119, 41, 0.8);
+        transition: width 0.05s linear;
+      }
+      @keyframes odstPing {
+        0% { transform: scale(1); opacity: 0.75; }
+        75%, 100% { transform: scale(2.2); opacity: 0; }
+      }
+      @keyframes odstPulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.3; }
+      }
+      .odst-ping {
+        animation: odstPing 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+        transform-origin: center;
+      }
+      .odst-pulse {
+        animation: odstPulse 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+    </style>
   </head>
-  <body class="bg-[#F8FAFC] text-[#242E69] font-arabic antialiased overflow-x-hidden min-h-screen">
+  <body class="bg-[#080D24] text-[#242E69] font-arabic antialiased overflow-x-hidden min-h-screen">
+    <!-- Instant 0ms Preloader Splash Screen (Zero White Flash / Zero Mobile Delay) -->
+    <div id="odst-splash" aria-label="ODST Airlines Loading">
+      <div class="odst-splash-glow"></div>
+      <div class="odst-splash-canvas-wrap">
+        <svg
+          class="odst-splash-svg"
+          viewBox="0 0 1000 450"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <linearGradient id="flightPathGlowGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#E87729" stop-opacity="0.2" />
+              <stop offset="70%" stop-color="#E87729" stop-opacity="0.9" />
+              <stop offset="100%" stop-color="#FFA559" stop-opacity="1" />
+            </linearGradient>
+
+            <filter id="neonPathGlow" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="4" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+
+            <linearGradient id="planeFuselage" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FFFFFF" />
+              <stop offset="65%" stop-color="#E2E8F0" />
+              <stop offset="100%" stop-color="#CBD5E1" />
+            </linearGradient>
+            <linearGradient id="planeWing" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FFFFFF" />
+              <stop offset="85%" stop-color="#CBD5E1" />
+              <stop offset="100%" stop-color="#94A3B8" />
+            </linearGradient>
+            <linearGradient id="odstOrange" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FFA057" />
+              <stop offset="100%" stop-color="#E87729" />
+            </linearGradient>
+            <linearGradient id="cockpitGlass" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#0B1333" />
+              <stop offset="100%" stop-color="#1E293B" />
+            </linearGradient>
+            <linearGradient id="engineContrail" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9" />
+              <stop offset="40%" stop-color="#E87729" stop-opacity="0.7" />
+              <stop offset="100%" stop-color="#E87729" stop-opacity="0" />
+            </linearGradient>
+          </defs>
+
+          <!-- 1. Full Dotted Planned Route Line -->
+          <path
+            d="M 80 370 Q 460 360 920 90"
+            fill="none"
+            stroke="rgba(255,255,255,0.12)"
+            stroke-width="2.5"
+            stroke-dasharray="6 8"
+          />
+
+          <!-- 2. Dynamic Glowing Flight Trail ending at Airplane Tail -->
+          <path
+            id="odst-flight-trail"
+            d="M 80 370 Q 80 370 80 370"
+            fill="none"
+            stroke="url(#flightPathGlowGrad)"
+            stroke-width="4"
+            stroke-linecap="round"
+            filter="url(#neonPathGlow)"
+          />
+
+          <!-- 3. Origin Point Indicator -->
+          <circle cx="80" cy="370" r="4" fill="#E87729" />
+          <circle cx="80" cy="370" r="9" fill="#E87729" opacity="0.25" class="odst-ping" />
+
+          <!-- 4. The Airplane -->
+          <g id="odst-plane" transform="translate(80, 370) rotate(88)">
+            <!-- Jet Engine Contrail Streaming from Behind Engines -->
+            <path
+              d="M -11 16 L -11 46 M 11 16 L 11 46"
+              stroke="url(#engineContrail)"
+              stroke-width="3.5"
+              stroke-linecap="round"
+              opacity="0.85"
+            />
+
+            <!-- Main Wings -->
+            <path
+              d="M 0 -2 L -42 16 L -39 21 L 0 6 L 39 21 L 42 16 Z"
+              fill="url(#planeWing)"
+              stroke="#94A3B8"
+              stroke-width="0.6"
+            />
+
+            <!-- ODST Orange Wingtips -->
+            <path d="M -42 16 L -44 12 L -39 19 Z" fill="url(#odstOrange)" />
+            <path d="M 42 16 L 44 12 L 39 19 Z" fill="url(#odstOrange)" />
+
+            <!-- Twin Turbofan Engines -->
+            <rect x="-14" y="6" width="6" height="12" rx="3" fill="#64748B" />
+            <rect x="-13" y="7" width="4" height="3" rx="1.5" fill="#334155" />
+            <circle cx="-11" cy="18" r="2" fill="#E87729" class="odst-pulse" />
+
+            <rect x="8" y="6" width="6" height="12" rx="3" fill="#64748B" />
+            <rect x="9" y="7" width="4" height="3" rx="1.5" fill="#334155" />
+            <circle cx="11" cy="18" r="2" fill="#E87729" class="odst-pulse" />
+
+            <!-- Horizontal Tail Stabilizers -->
+            <path
+              d="M 0 30 L -18 39 L -17 42 L 0 35 L 17 42 L 18 39 Z"
+              fill="url(#planeWing)"
+            />
+
+            <!-- Aerodynamic Fuselage Body -->
+            <path
+              d="M 0 -34 C -5 -26, -7 -10, -7 24 C -7 33, -3 38, 0 42 C 3 38, 7 33, 7 24 C 7 -10, 5 -26, 0 -34 Z"
+              fill="url(#planeFuselage)"
+              stroke="#CBD5E1"
+              stroke-width="0.5"
+            />
+
+            <!-- Cockpit Windshield -->
+            <path
+              d="M -3.5 -24 C -2 -26, 2 -26, 3.5 -24 L 4 -20 C 2 -19, -2 -19, -4 -20 Z"
+              fill="url(#cockpitGlass)"
+            />
+
+            <!-- Spine Accent -->
+            <line x1="0" y1="-14" x2="0" y2="20" stroke="#242E69" stroke-width="1" stroke-linecap="round" />
+
+            <!-- Vertical Tail Fin (ODST Signature Orange) -->
+            <path
+              d="M -1.5 20 L 1.5 20 L 2 36 L -2 36 Z"
+              fill="url(#odstOrange)"
+            />
+
+            <!-- Strobe Navigation Lights -->
+            <circle cx="-43" cy="15" r="1.5" fill="#EF4444" class="odst-ping" />
+            <circle cx="43" cy="15" r="1.5" fill="#22C55E" class="odst-ping" />
+            <circle cx="0" cy="2" r="1.8" fill="#FFFFFF" class="odst-pulse" />
+          </g>
+        </svg>
+
+        <!-- Brand Loading Card -->
+        <div class="odst-splash-brand">
+          <div class="odst-splash-logo-wrap">
+            <img src="/LogoOdst.png" alt="ODST Airlines" class="odst-splash-logo" />
+          </div>
+          <div class="odst-splash-text">
+            <span class="odst-splash-title">ODST AIRLINES</span>
+            <span class="odst-splash-sub">طيران أوديست • Mendekatkan Jarak</span>
+          </div>
+          <div class="odst-splash-progress-track">
+            <div class="odst-splash-progress-bar" id="odst-progress-bar"></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function() {
+          var splash = document.getElementById('odst-splash');
+          var plane = document.getElementById('odst-plane');
+          var trail = document.getElementById('odst-flight-trail');
+          var pBar = document.getElementById('odst-progress-bar');
+          if (!splash || !plane || !trail) return;
+
+          var P0 = { x: 80, y: 370 };
+          var P1 = { x: 460, y: 360 };
+          var P2 = { x: 920, y: 90 };
+          var minDuration = 1800;
+          var startTime = performance.now();
+          var isAppReady = false;
+          var isCompleted = false;
+
+          function easeInOutCubic(x) {
+            return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+          }
+
+          function updateFrame(now) {
+            if (isCompleted) return;
+            var elapsed = now - startTime;
+            var rawProgress = Math.min(1, elapsed / minDuration);
+            var p = easeInOutCubic(rawProgress);
+
+            var currentX = Math.pow(1 - p, 2) * P0.x + 2 * (1 - p) * p * P1.x + Math.pow(p, 2) * P2.x;
+            var currentY = Math.pow(1 - p, 2) * P0.y + 2 * (1 - p) * p * P1.y + Math.pow(p, 2) * P2.y;
+            var dx = 2 * (1 - p) * (P1.x - P0.x) + 2 * p * (P2.x - P1.x);
+            var dy = 2 * (1 - p) * (P1.y - P0.y) + 2 * p * (P2.y - P1.y);
+            var angleDeg = (Math.atan2(dy, dx) * 180) / Math.PI + 90;
+            var Q1x = (1 - p) * P0.x + p * P1.x;
+            var Q1y = (1 - p) * P0.y + p * P1.y;
+
+            plane.setAttribute('transform', 'translate(' + currentX.toFixed(2) + ', ' + currentY.toFixed(2) + ') rotate(' + angleDeg.toFixed(1) + ')');
+            if (p > 0.01) {
+              trail.setAttribute('d', 'M ' + P0.x + ' ' + P0.y + ' Q ' + Q1x.toFixed(2) + ' ' + Q1y.toFixed(2) + ' ' + currentX.toFixed(2) + ' ' + currentY.toFixed(2));
+            }
+            if (pBar) {
+              pBar.style.width = (p * 100).toFixed(1) + '%';
+            }
+
+            if (rawProgress >= 1) {
+              if (isAppReady || elapsed >= 3000) {
+                finishSplash();
+                return;
+              }
+            }
+            requestAnimationFrame(updateFrame);
+          }
+
+          function finishSplash() {
+            if (isCompleted) return;
+            isCompleted = true;
+            if (plane) {
+              var currentTransform = plane.getAttribute('transform') || '';
+              plane.setAttribute('transform', currentTransform + ' scale(1.25)');
+            }
+            setTimeout(function() {
+              if (splash) splash.classList.add('splash-fading');
+            }, 250);
+            setTimeout(function() {
+              if (splash) {
+                splash.style.display = 'none';
+                if (splash.parentNode) splash.parentNode.removeChild(splash);
+              }
+            }, 950);
+          }
+
+          window.__ODST_SPLASH_DONE__ = function() {
+            isAppReady = true;
+            var elapsed = performance.now() - startTime;
+            if (elapsed >= minDuration) {
+              finishSplash();
+            }
+          };
+
+          requestAnimationFrame(updateFrame);
+        })();
+      </script>
+    </div>
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

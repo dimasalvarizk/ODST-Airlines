@@ -174,68 +174,6 @@
         overflow: visible;
         filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6));
       }
-      .odst-splash-brand {
-        margin-top: 1.25rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.6rem;
-        text-align: center;
-        position: relative;
-        z-index: 2;
-      }
-      .odst-splash-logo-wrap {
-        width: 42px;
-        height: 42px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        border-radius: 12px;
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-      }
-      .odst-splash-logo {
-        width: 26px;
-        height: auto;
-        object-fit: contain;
-      }
-      .odst-splash-text {
-        display: flex;
-        flex-direction: column;
-        gap: 0.2rem;
-      }
-      .odst-splash-title {
-        color: #FFFFFF;
-        font-size: 0.82rem;
-        font-weight: 800;
-        letter-spacing: 0.25em;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      }
-      .odst-splash-sub {
-        color: rgba(255, 255, 255, 0.6);
-        font-size: 0.72rem;
-        font-weight: 500;
-        letter-spacing: 0.04em;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      }
-      .odst-splash-progress-track {
-        width: 150px;
-        height: 3px;
-        background: rgba(255, 255, 255, 0.12);
-        border-radius: 99px;
-        overflow: hidden;
-        margin-top: 0.4rem;
-      }
-      .odst-splash-progress-bar {
-        width: 0%;
-        height: 100%;
-        background: linear-gradient(90deg, #E87729, #FFA559);
-        border-radius: 99px;
-        box-shadow: 0 0 8px rgba(232, 119, 41, 0.8);
-        transition: width 0.05s linear;
-      }
       @keyframes odstPing {
         0% { transform: scale(1); opacity: 0.75; }
         75%, 100% { transform: scale(2.2); opacity: 0; }
@@ -392,20 +330,6 @@
             <circle cx="0" cy="2" r="1.8" fill="#FFFFFF" class="odst-pulse" />
           </g>
         </svg>
-
-        <!-- Brand Loading Card -->
-        <div class="odst-splash-brand">
-          <div class="odst-splash-logo-wrap">
-            <img src="/LogoOdst.png" alt="ODST Airlines" class="odst-splash-logo" />
-          </div>
-          <div class="odst-splash-text">
-            <span class="odst-splash-title">ODST AIRLINES</span>
-            <span class="odst-splash-sub">طيران أوديست • Mendekatkan Jarak</span>
-          </div>
-          <div class="odst-splash-progress-track">
-            <div class="odst-splash-progress-bar" id="odst-progress-bar"></div>
-          </div>
-        </div>
       </div>
 
       <script>
@@ -413,7 +337,6 @@
           var splash = document.getElementById('odst-splash');
           var plane = document.getElementById('odst-plane');
           var trail = document.getElementById('odst-flight-trail');
-          var pBar = document.getElementById('odst-progress-bar');
           if (!splash || !plane || !trail) return;
 
           var P0 = { x: 80, y: 370 };
@@ -445,9 +368,6 @@
             plane.setAttribute('transform', 'translate(' + currentX.toFixed(2) + ', ' + currentY.toFixed(2) + ') rotate(' + angleDeg.toFixed(1) + ')');
             if (p > 0.01) {
               trail.setAttribute('d', 'M ' + P0.x + ' ' + P0.y + ' Q ' + Q1x.toFixed(2) + ' ' + Q1y.toFixed(2) + ' ' + currentX.toFixed(2) + ' ' + currentY.toFixed(2));
-            }
-            if (pBar) {
-              pBar.style.width = (p * 100).toFixed(1) + '%';
             }
 
             if (rawProgress >= 1) {

@@ -15,7 +15,7 @@ export interface ContactPageProps {
 }
 
 export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
-  const { t, isRTL } = useLanguage();
+  const { t, isRTL, language } = useLanguage();
   const { showToast } = useToast();
 
   const [isReady, setIsReady] = useState(true);
@@ -64,11 +64,19 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      showToast(
-        isRTL ? 'بيانات غير مكتملة' : 'Incomplete Information',
-        isRTL ? 'يرجى تعبئة الحقول المطلوبة' : 'Please fill in all required fields',
-        'error'
-      );
+      const incompleteTitle =
+        language === 'ar'
+          ? 'بيانات غير مكتملة'
+          : language === 'id'
+          ? 'Data Belum Lengkap'
+          : 'Incomplete Information';
+      const incompleteMsg =
+        language === 'ar'
+          ? 'يرجى تعبئة الحقول المطلوبة'
+          : language === 'id'
+          ? 'Silakan lengkapi kolom yang wajib diisi.'
+          : 'Please fill in all required fields';
+      showToast(incompleteTitle, incompleteMsg, 'error');
       return;
     }
 
@@ -90,11 +98,15 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
           'success'
         );
       } else {
-        showToast(
-          isRTL ? 'خطأ' : 'Error',
-          res.message || 'Failed to send message',
-          'error'
-        );
+        const errTitle = language === 'ar' ? 'خطأ' : language === 'id' ? 'Gagal' : 'Error';
+        const errMsg =
+          res.message ||
+          (language === 'ar'
+            ? 'فشل إرسال الرسالة'
+            : language === 'id'
+            ? 'Gagal mengirim pesan.'
+            : 'Failed to send message');
+        showToast(errTitle, errMsg, 'error');
       }
     } catch (err: any) {
       // If backend network error, still show friendly response
@@ -271,7 +283,11 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
                       }}
                       className="px-5 py-2 rounded-lg bg-white/10 hover:bg-white/15 border border-white/15 active:scale-95 text-white text-xs font-semibold transition-colors cursor-pointer"
                     >
-                      {isRTL ? 'إرسال رسالة أخرى' : 'Kirim Pesan Lain'}
+                      {language === 'ar'
+                        ? 'إرسال رسالة أخرى'
+                        : language === 'id'
+                        ? 'Kirim Pesan Lain'
+                        : 'Send Another Message'}
                     </button>
                   </div>
                 </div>

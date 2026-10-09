@@ -74,12 +74,12 @@ const LiveTimerUnits = memo(({
   );
 });
 
-export const CountdownTab: React.FC<CountdownTabProps> = ({ showToast, adminLang = 'id' }) => {
+export const CountdownTab: React.FC<CountdownTabProps> = ({ showToast, adminLang = 'en' }) => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [auditHistory, setAuditHistory] = useState<AuditLogItem[]>([]);
-  const [selectedTextLang, setSelectedTextLang] = useState<'id' | 'en' | 'ar'>('id');
-  const t = ADMIN_TRANSLATIONS[adminLang].countdown;
+  const [selectedTextLang, setSelectedTextLang] = useState<'id' | 'en' | 'ar'>('en');
+  const t = ADMIN_TRANSLATIONS[adminLang]?.countdown || ADMIN_TRANSLATIONS.en.countdown;
 
   const [formData, setFormData] = useState<Partial<CountdownData>>({
     target_date: '',

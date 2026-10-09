@@ -4,7 +4,6 @@ import { authService } from '../services/api';
 import logoOdst from '../assets/LogoOdst.png';
 import heroBg from '../assets/hero.jpg';
 import { ADMIN_TRANSLATIONS, type AdminLanguage } from '../data/adminTranslations';
-import { AdminLanguageSwitcher } from '../components/admin/AdminLanguageSwitcher';
 
 interface AdminLoginPageProps {
   onLoginSuccess: () => void;
@@ -12,30 +11,38 @@ interface AdminLoginPageProps {
 }
 
 export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ onLoginSuccess }) => {
-  const [emailOrUsername, setEmailOrUsername] = useState('');
+  const [rememberMe, setRememberMe] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('odst_admin_remember') === 'true';
+    } catch {
+      return false;
+    }
+  });
+
+  const [emailOrUsername, setEmailOrUsername] = useState<string>(() => {
+    try {
+      return localStorage.getItem('odst_admin_saved_user') || '';
+    } catch {
+      return '';
+    }
+  });
+
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   // Multilingual state for Admin Login
-  const [adminLang, setAdminLang] = useState<AdminLanguage>(() => {
+  const [adminLang] = useState<AdminLanguage>(() => {
     try {
       const saved = localStorage.getItem('odst_admin_lang');
       if (saved === 'id' || saved === 'en' || saved === 'ar') {
         return saved;
       }
     } catch {}
-    return 'id';
+    return 'en';
   });
 
-  const handleAdminLangChange = (newLang: AdminLanguage) => {
-    setAdminLang(newLang);
-    try {
-      localStorage.setItem('odst_admin_lang', newLang);
-    } catch {}
-  };
-
-  const t = ADMIN_TRANSLATIONS[adminLang].loginPage;
+  const t = ADMIN_TRANSLATIONS[adminLang]?.loginPage || ADMIN_TRANSLATIONS.en.loginPage;
 
   // Force LTR direction on admin portal
   useEffect(() => {
@@ -56,6 +63,15 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ onLoginSuccess }
     try {
       const response = await authService.login(emailOrUsername, password);
       if (response.success) {
+        try {
+          if (rememberMe) {
+            localStorage.setItem('odst_admin_remember', 'true');
+            localStorage.setItem('odst_admin_saved_user', emailOrUsername.trim());
+          } else {
+            localStorage.removeItem('odst_admin_remember');
+            localStorage.removeItem('odst_admin_saved_user');
+          }
+        } catch {}
         onLoginSuccess();
       } else {
         setErrorMessage(response.message || 'Kredensial login tidak valid.');
@@ -69,9 +85,9 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ onLoginSuccess }
   };
 
   return (
-    <div dir="ltr" className="min-h-screen relative text-slate-100 flex flex-col justify-between font-sans antialiased selection:bg-[#E87729] selection:text-white overflow-hidden bg-[#070B1E]">
+    <div dir="ltr" className="min-h-screen relative text-slate-100 flex items-center justify-center font-sans antialiased selection:bg-[#E87729] selection:text-white overflow-hidden bg-[#070B1E] p-4">
       {/* Background Hero Image - High Performance GPU */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <img
           src={heroBg}
           alt="ODST Airlines Aviation Background"
@@ -81,29 +97,23 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ onLoginSuccess }
         <div className="absolute inset-0 bg-gradient-to-b from-[#070B1E]/95 via-[#070B1E]/80 to-[#070B1E]/95"></div>
       </div>
 
-      {/* Top Header with Language Switcher */}
-      <header className="relative z-10 px-6 py-4 border-b border-white/10 flex items-center justify-between bg-[#070B1E]/95">
-        <div className="flex items-center gap-3">
-          <img src={logoOdst} alt="ODST Airlines" className="h-7 w-auto object-contain" />
-          <div className="h-4 w-px bg-white/20 mx-1"></div>
-          <span className="text-xs font-medium text-slate-300">{t.portalSubtitle}</span>
-        </div>
-        
-        <div className="flex items-center gap-2">
-          <AdminLanguageSwitcher currentLang={adminLang} onChangeLang={handleAdminLangChange} />
-        </div>
-      </header>
-
       {/* Center Box */}
-      <main className="relative z-10 flex-1 flex items-center justify-center p-4">
-        <div className="w-full max-w-sm bg-[#0B112C] border border-white/15 rounded-xl p-6 sm:p-7 shadow-2xl shadow-black/80 space-y-5 text-left">
-          <div>
-            <h1 className="text-lg font-semibold text-white">{t.title}</h1>
-            <p className="text-xs text-slate-400 mt-1">{t.subtitle}</p>
+      <main className="relative z-10 w-full max-w-sm sm:max-w-[420px]">
+        <div className="w-full bg-[#0B112C] border border-white/15 rounded-2xl p-6 sm:p-8 shadow-2xl shadow-black/90 space-y-6 text-left backdrop-blur-md">
+          <div className="text-center space-y-2">
+            <div className="flex items-center justify-center mb-4">
+              <img
+                src={logoOdst}
+                alt="ODST Airlines"
+                className="h-14 sm:h-16 w-auto object-contain drop-shadow-lg transition-transform duration-200"
+              />
+            </div>
+            <h1 className="text-xl font-bold text-white text-center tracking-tight">{t.title}</h1>
+            <p className="text-xs text-slate-400 text-center max-w-xs mx-auto leading-relaxed">{t.subtitle}</p>
           </div>
 
           {errorMessage && (
-            <div className="p-3 rounded-md bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs leading-relaxed">
+            <div className="p-3 rounded-lg bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs leading-relaxed">
               {errorMessage}
             </div>
           )}
@@ -117,7 +127,7 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ onLoginSuccess }
                 value={emailOrUsername}
                 onChange={(e) => setEmailOrUsername(e.target.value)}
                 placeholder={t.emailOrUsername}
-                className="w-full px-3 py-2 rounded-lg bg-black/40 border border-white/15 text-white placeholder-slate-500 outline-none focus:border-[#E87729] focus:ring-1 focus:ring-[#E87729] font-mono text-xs transition-colors text-left"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-black/40 border border-white/15 text-white placeholder-slate-500 outline-none focus:border-[#E87729] focus:ring-1 focus:ring-[#E87729] font-mono text-xs transition-colors text-left"
               />
             </div>
 
@@ -129,14 +139,29 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ onLoginSuccess }
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••••••"
-                className="w-full px-3 py-2 rounded-lg bg-black/40 border border-white/15 text-white placeholder-slate-500 outline-none focus:border-[#E87729] focus:ring-1 focus:ring-[#E87729] font-mono text-xs transition-colors text-left"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-black/40 border border-white/15 text-white placeholder-slate-500 outline-none focus:border-[#E87729] focus:ring-1 focus:ring-[#E87729] font-mono text-xs transition-colors text-left"
               />
+            </div>
+
+            {/* Remember Me / Simpan Login */}
+            <div className="flex items-center justify-between pt-1">
+              <label className="flex items-center gap-2.5 cursor-pointer select-none group">
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="w-4 h-4 rounded border-white/20 bg-black/40 text-[#E87729] focus:ring-1 focus:ring-[#E87729] focus:ring-offset-0 cursor-pointer accent-[#E87729]"
+                />
+                <span className="text-xs text-slate-300 group-hover:text-white transition-colors">
+                  {t.rememberMe || 'Remember me on this device'}
+                </span>
+              </label>
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 rounded-lg bg-[#E87729] hover:bg-[#D5681E] font-medium text-xs text-white transition-colors cursor-pointer flex items-center justify-center gap-2 mt-2 disabled:opacity-50 shadow-md shadow-[#E87729]/20"
+              className="w-full py-3 rounded-xl bg-[#E87729] hover:bg-[#D5681E] font-semibold text-xs text-white transition-all cursor-pointer flex items-center justify-center gap-2 mt-2 disabled:opacity-50 shadow-lg shadow-[#E87729]/25 active:scale-[0.98]"
             >
               {loading ? (
                 <>
@@ -150,10 +175,6 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ onLoginSuccess }
           </form>
         </div>
       </main>
-
-      <footer className="relative z-10 py-4 text-center text-xs text-slate-400 border-t border-white/10 bg-[#070B1E]">
-        © {new Date().getFullYear()} ODST Airlines. {t.copyright}
-      </footer>
     </div>
   );
 };

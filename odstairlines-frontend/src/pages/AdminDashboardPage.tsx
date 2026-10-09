@@ -15,7 +15,6 @@ import { authService, type AdminUser } from '../services/api';
 import logoOdst from '../assets/LogoOdst.png';
 import heroBg from '../assets/hero.jpg';
 import { ADMIN_TRANSLATIONS, type AdminLanguage } from '../data/adminTranslations';
-import { AdminLanguageSwitcher } from '../components/admin/AdminLanguageSwitcher';
 import { OverviewTab } from '../components/admin/OverviewTab';
 import { CountdownTab } from '../components/admin/CountdownTab';
 import { InquiriesTab } from '../components/admin/InquiriesTab';
@@ -35,24 +34,17 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({
   const [currentUser] = useState<AdminUser | null>(() => authService.getCurrentUser());
 
   // Multilingual state for Admin Dashboard
-  const [adminLang, setAdminLang] = useState<AdminLanguage>(() => {
+  const [adminLang] = useState<AdminLanguage>(() => {
     try {
       const saved = localStorage.getItem('odst_admin_lang');
       if (saved === 'id' || saved === 'en' || saved === 'ar') {
         return saved;
       }
     } catch {}
-    return 'id';
+    return 'en';
   });
 
-  const handleAdminLangChange = (newLang: AdminLanguage) => {
-    setAdminLang(newLang);
-    try {
-      localStorage.setItem('odst_admin_lang', newLang);
-    } catch {}
-  };
-
-  const t = ADMIN_TRANSLATIONS[adminLang];
+  const t = ADMIN_TRANSLATIONS[adminLang] || ADMIN_TRANSLATIONS.en;
 
   // Enforce consistent direction on admin dashboard
   useEffect(() => {
@@ -252,11 +244,6 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({
             <span className="text-xs text-slate-400 font-medium">
               {t.nav.adminPrefix} / <span className="text-white">{navItems.find((n) => n.id === activeTab)?.label}</span>
             </span>
-          </div>
-
-          {/* 3-Language Switcher (ID, EN, AR) */}
-          <div className="flex items-center gap-2">
-            <AdminLanguageSwitcher currentLang={adminLang} onChangeLang={handleAdminLangChange} />
           </div>
         </header>
 

@@ -16,7 +16,7 @@ interface InquiriesTabProps {
   adminLang?: AdminLanguage;
 }
 
-export const InquiriesTab: React.FC<InquiriesTabProps> = ({ showToast, adminLang = 'id' }) => {
+export const InquiriesTab: React.FC<InquiriesTabProps> = ({ showToast, adminLang = 'en' }) => {
   const [inquiries, setInquiries] = useState<ContactInquiry[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -34,7 +34,7 @@ export const InquiriesTab: React.FC<InquiriesTabProps> = ({ showToast, adminLang
   const [inquiryToDelete, setInquiryToDelete] = useState<ContactInquiry | null>(null);
   const [deleting, setDeleting] = useState(false);
 
-  const t = ADMIN_TRANSLATIONS[adminLang].inquiries;
+  const t = ADMIN_TRANSLATIONS[adminLang]?.inquiries || ADMIN_TRANSLATIONS.en.inquiries;
 
   const fetchInquiries = async () => {
     setLoading(true);

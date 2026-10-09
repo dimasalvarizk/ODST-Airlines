@@ -18,6 +18,8 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage = 'landing', onNavig
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const langDropdownRef = React.useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     // Strip hash from browser address bar immediately if one exists
     if (window.location.hash) {
@@ -35,6 +37,23 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage = 'landing', onNavig
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (!langDropdownOpen) return;
+
+    const handleOutsideClick = (event: MouseEvent | TouchEvent) => {
+      if (langDropdownRef.current && !langDropdownRef.current.contains(event.target as Node)) {
+        setLangDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+    document.addEventListener('touchstart', handleOutsideClick, { passive: true });
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener('touchstart', handleOutsideClick);
+    };
+  }, [langDropdownOpen]);
 
   const languages: { code: Language; label: string; flag: React.ReactNode }[] = [
     { code: 'ar', label: 'العربية (AR)', flag: <SaudiFlag /> },
@@ -148,9 +167,10 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage = 'landing', onNavig
 
         {/* 3. Language Switcher Pill & Mobile Drawer Toggle (End Side) */}
         <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 z-10">
-          <div className="relative font-noto-arabic">
+          <div ref={langDropdownRef} className="relative font-noto-arabic z-30">
             <button
-              onClick={() => setLangDropdownOpen(!langDropdownOpen)}
+              type="button"
+              onClick={() => setLangDropdownOpen((prev) => !prev)}
               dir="ltr"
               className="flex flex-row items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white hover:bg-slate-50 text-[#1E285F] text-xs sm:text-sm font-bold shadow-md transition-all active:scale-95 font-sans cursor-pointer"
               aria-label="Switch Language"
@@ -158,51 +178,51 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage = 'landing', onNavig
               <img
                 src={languageIcon}
                 alt="Language"
-                className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-4.5 lg:h-4.5 object-contain select-none shrink-0"
+                className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-4.5 lg:h-4.5 object-contain select-none shrink-0 pointer-events-none"
               />
-              <span className="font-bold tracking-wide text-[#1E285F]">
+              <span className="font-bold tracking-wide text-[#1E285F] pointer-events-none">
                 {language.toUpperCase()}
               </span>
             </button>
 
             {/* Language Selector Popover with solid white card & crisp contrast */}
             {langDropdownOpen && (
-              <>
-                <div
-                  className="fixed inset-0 z-40"
-                  onClick={() => setLangDropdownOpen(false)}
-                />
-                <div
-                  className={`absolute top-full mt-3 w-48 sm:w-56 rounded-2xl bg-white text-[#242E69] shadow-[0_20px_50px_rgba(0,0,0,0.35)] border border-slate-200/90 p-2 z-50 animate-in fade-in zoom-in-95 duration-150 font-noto-arabic ${
-                    isRTL ? 'left-0' : 'right-0'
-                  }`}
-                >
-                  <div className="space-y-1">
-                    {languages.map((item) => (
-                      <button
-                        key={item.code}
-                        onClick={() => {
-                          setLanguage(item.code);
-                          setLangDropdownOpen(false);
-                        }}
-                        className={`w-full flex items-center justify-between px-3 py-2 sm:px-3.5 sm:py-2.5 text-xs sm:text-sm rounded-xl transition-all cursor-pointer font-bold ${
-                          language === item.code
-                            ? 'bg-[#FFF4EC] text-[#E87729] font-extrabold shadow-sm'
-                            : 'text-[#242E69] hover:bg-slate-100/90 font-semibold'
-                        }`}
-                      >
-                        <span className="flex items-center gap-2.5">
-                          {item.flag}
-                          <span className="text-xs sm:text-sm">{item.label}</span>
-                        </span>
-                        {language === item.code && (
-                          <Check className="w-4 h-4 text-[#E87729] shrink-0 stroke-[2.5]" />
-                        )}
-                      </button>
-                    ))}
-                  </div>
+              <div
+                className={`absolute top-full mt-3 w-48 sm:w-56 rounded-2xl bg-white text-[#242E69] shadow-[0_20px_50px_rgba(0,0,0,0.35)] border border-slate-200/90 p-2 z-50 animate-in fade-in zoom-in-95 duration-150 font-noto-arabic ${
+                  isRTL ? 'left-0' : 'right-0'
+                }`}
+              >
+                <div className="space-y-1">
+                  {languages.map((item) => (
+                    <button
+                      key={item.code}
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setLanguage(item.code);
+                        setLangDropdownOpen(false);
+                      }}
+                      onMouseDown={(e) => {
+                        e.stopPropagation();
+                      }}
+                      className={`w-full flex items-center justify-between px-3 py-2 sm:px-3.5 sm:py-2.5 text-xs sm:text-sm rounded-xl transition-all cursor-pointer font-bold ${
+                        language === item.code
+                          ? 'bg-[#FFF4EC] text-[#E87729] font-extrabold shadow-sm'
+                          : 'text-[#242E69] hover:bg-slate-100/90 font-semibold'
+                      }`}
+                    >
+                      <span className="flex items-center gap-2.5 pointer-events-none">
+                        {item.flag}
+                        <span className="text-xs sm:text-sm">{item.label}</span>
+                      </span>
+                      {language === item.code && (
+                        <Check className="w-4 h-4 text-[#E87729] shrink-0 stroke-[2.5] pointer-events-none" />
+                      )}
+                    </button>
+                  ))}
                 </div>
-              </>
+              </div>
             )}
           </div>
 

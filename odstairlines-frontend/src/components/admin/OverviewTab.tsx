@@ -9,10 +9,10 @@ interface OverviewTabProps {
   adminLang?: AdminLanguage;
 }
 
-export const OverviewTab: React.FC<OverviewTabProps> = ({ onNavigateTab, showToast, adminLang = 'id' }) => {
+export const OverviewTab: React.FC<OverviewTabProps> = ({ onNavigateTab, showToast, adminLang = 'en' }) => {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [loading, setLoading] = useState(true);
-  const t = ADMIN_TRANSLATIONS[adminLang].overview;
+  const t = ADMIN_TRANSLATIONS[adminLang]?.overview || ADMIN_TRANSLATIONS.en.overview;
 
   const fetchStats = async () => {
     setLoading(true);

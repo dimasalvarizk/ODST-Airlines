@@ -10,7 +10,7 @@ interface NewsletterModalProps {
 }
 
 export const NewsletterModal: React.FC<NewsletterModalProps> = ({ isOpen, onClose }) => {
-  const { t, isRTL } = useLanguage();
+  const { t, isRTL, language } = useLanguage();
   const { showToast } = useToast();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -49,12 +49,21 @@ export const NewsletterModal: React.FC<NewsletterModalProps> = ({ isOpen, onClos
         setErrorMessage(null);
       }, 2500);
     } else {
-      setErrorMessage(result.error || 'Gagal mendaftar. Silakan coba lagi.');
-      showToast(
-        'Pendaftaran Gagal',
-        result.error || 'Silakan periksa kembali email Anda.',
-        'error'
-      );
+      const errTitle =
+        language === 'ar'
+          ? 'فشل الاشتراك'
+          : language === 'id'
+          ? 'Pendaftaran Gagal'
+          : 'Subscription Failed';
+      const errMsg =
+        result.error ||
+        (language === 'ar'
+          ? 'يرجى التحقق من بريدك الإلكتروني والمحاولة مرة أخرى.'
+          : language === 'id'
+          ? 'Gagal mendaftar. Silakan periksa kembali email Anda.'
+          : 'Subscription failed. Please verify your email and try again.');
+      setErrorMessage(errMsg);
+      showToast(errTitle, errMsg, 'error');
     }
   };
 
@@ -140,10 +149,10 @@ export const NewsletterModal: React.FC<NewsletterModalProps> = ({ isOpen, onClos
                   <span className="flex items-center gap-2">
                     <Loader2 className="w-4 h-4 animate-spin" />
                     <span>
-                      {t.nav.home === 'Beranda'
-                        ? 'Mendaftarkan...'
-                        : t.nav.home === 'الرئيسية'
+                      {language === 'ar'
                         ? 'جاري التسجيل...'
+                        : language === 'id'
+                        ? 'Mendaftarkan...'
                         : 'Subscribing...'}
                     </span>
                   </span>

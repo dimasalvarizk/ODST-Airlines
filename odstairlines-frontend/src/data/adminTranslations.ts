@@ -192,6 +192,7 @@ export const ADMIN_TRANSLATIONS = {
       verifying: 'Memverifikasi...',
       copyright: 'Hak cipta dilindungi undang-undang.',
       fillFields: 'Silakan masukkan email/username dan kata sandi.',
+      rememberMe: 'Ingat saya di perangkat ini',
     },
   },
 
@@ -374,6 +375,7 @@ export const ADMIN_TRANSLATIONS = {
       verifying: 'Verifying...',
       copyright: 'All rights reserved.',
       fillFields: 'Please enter your email/username and password.',
+      rememberMe: 'Remember me on this device',
     },
   },
 
@@ -556,6 +558,7 @@ export const ADMIN_TRANSLATIONS = {
       verifying: 'جاري التحقق...',
       copyright: 'جميع الحقوق محفوظة.',
       fillFields: 'يرجى إدخال البريد الإلكتروني وكلمة المرور.',
+      rememberMe: 'تذكرني على هذا الجهاز',
     },
   },
 };

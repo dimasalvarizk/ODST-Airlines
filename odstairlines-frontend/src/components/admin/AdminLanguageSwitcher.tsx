@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Check, ChevronDown } from 'lucide-react';
 import type { AdminLanguage } from '../../data/adminTranslations';
 import { IndonesiaFlag, UKFlag, SaudiFlag } from '../common/Flags';
@@ -48,6 +48,7 @@ export const AdminLanguageSwitcher: React.FC<AdminLanguageSwitcherProps> = ({
   className = '',
 }) => {
   const [open, setOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const languages: AdminLanguageOption[] = [
     {
@@ -72,13 +73,39 @@ export const AdminLanguageSwitcher: React.FC<AdminLanguageSwitcherProps> = ({
 
   const currentOption = languages.find((l) => l.code === currentLang) || languages[0];
 
+  useEffect(() => {
+    if (!open) return;
+
+    const handleOutsideClick = (event: MouseEvent | TouchEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+    document.addEventListener('touchstart', handleOutsideClick, { passive: true });
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener('touchstart', handleOutsideClick);
+    };
+  }, [open]);
+
+  const handleSelect = (code: AdminLanguage) => {
+    onChangeLang(code);
+    setOpen(false);
+  };
+
   return (
-    <div className={`relative inline-block text-left notranslate ${className}`} translate="no">
+    <div
+      ref={containerRef}
+      className={`relative inline-block text-left notranslate z-30 ${className}`}
+      translate="no"
+    >
       {/* Trigger Button */}
       <button
         type="button"
         id="admin-language-trigger"
-        onClick={() => setOpen(!open)}
+        onClick={() => setOpen((prev) => !prev)}
         className={`inline-flex items-center gap-2 px-2.5 py-1.5 rounded-lg border text-xs font-medium transition-all duration-150 cursor-pointer select-none active:scale-95 ${
           open
             ? 'bg-white/10 border-white/25 text-white'
@@ -96,47 +123,45 @@ export const AdminLanguageSwitcher: React.FC<AdminLanguageSwitcherProps> = ({
 
       {/* Popover Dropdown Menu */}
       {open && (
-        <>
-          <div
-            className="fixed inset-0 z-40"
-            onClick={() => setOpen(false)}
-          />
-          <div
-            className="absolute right-0 top-full mt-1.5 w-44 rounded-xl bg-[#0E1538] border border-white/15 shadow-2xl shadow-black/80 p-1 z-50 animate-in fade-in zoom-in-95 duration-100"
-          >
-            <div className="space-y-0.5">
-              {languages.map((lang) => {
-                const isSelected = currentLang === lang.code;
+        <div
+          className="absolute right-0 top-full mt-1.5 w-44 rounded-xl bg-[#0E1538] border border-white/15 shadow-2xl shadow-black/80 p-1 z-50 animate-in fade-in zoom-in-95 duration-100"
+        >
+          <div className="space-y-0.5">
+            {languages.map((lang) => {
+              const isSelected = currentLang === lang.code;
 
-                return (
-                  <button
-                    key={lang.code}
-                    type="button"
-                    id={`admin-lang-btn-${lang.code}`}
-                    onClick={() => {
-                      onChangeLang(lang.code);
-                      setOpen(false);
-                    }}
-                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition-colors cursor-pointer text-left select-none ${
-                      isSelected
-                        ? 'bg-white/10 text-white font-semibold'
-                        : 'text-slate-300 hover:bg-white/5 hover:text-white'
-                    }`}
-                  >
-                    <span className="flex items-center gap-2.5">
-                      {lang.flagNode}
-                      <span>{lang.label}</span>
-                    </span>
+              return (
+                <button
+                  key={lang.code}
+                  type="button"
+                  id={`admin-lang-btn-${lang.code}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleSelect(lang.code);
+                  }}
+                  onMouseDown={(e) => {
+                    e.stopPropagation();
+                  }}
+                  className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition-colors cursor-pointer text-left select-none ${
+                    isSelected
+                      ? 'bg-white/10 text-white font-semibold'
+                      : 'text-slate-300 hover:bg-white/5 hover:text-white'
+                  }`}
+                >
+                  <span className="flex items-center gap-2.5 pointer-events-none">
+                    {lang.flagNode}
+                    <span>{lang.label}</span>
+                  </span>
 
-                    {isSelected && (
-                      <Check className="w-3.5 h-3.5 text-[#E87729] stroke-[2.5]" />
-                    )}
-                  </button>
-                );
-              })}
-            </div>
+                  {isSelected && (
+                    <Check className="w-3.5 h-3.5 text-[#E87729] stroke-[2.5] pointer-events-none" />
+                  )}
+                </button>
+              );
+            })}
           </div>
-        </>
+        </div>
       )}
     </div>
   );

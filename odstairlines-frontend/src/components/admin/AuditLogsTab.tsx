@@ -8,7 +8,7 @@ interface AuditLogsTabProps {
   adminLang?: AdminLanguage;
 }
 
-export const AuditLogsTab: React.FC<AuditLogsTabProps> = ({ showToast, adminLang = 'id' }) => {
+export const AuditLogsTab: React.FC<AuditLogsTabProps> = ({ showToast, adminLang = 'en' }) => {
   const [logs, setLogs] = useState<AuditLogItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [moduleFilter, setModuleFilter] = useState('all');
@@ -17,7 +17,7 @@ export const AuditLogsTab: React.FC<AuditLogsTabProps> = ({ showToast, adminLang
   const [totalPages, setTotalPages] = useState(1);
   const [totalRecords, setTotalRecords] = useState(0);
 
-  const t = ADMIN_TRANSLATIONS[adminLang].auditLogs;
+  const t = ADMIN_TRANSLATIONS[adminLang]?.auditLogs || ADMIN_TRANSLATIONS.en.auditLogs;
 
   const fetchLogs = async () => {
     setLoading(true);

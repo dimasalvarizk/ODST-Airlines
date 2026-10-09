@@ -8,10 +8,10 @@ interface ContactInfoTabProps {
   adminLang?: AdminLanguage;
 }
 
-export const ContactInfoTab: React.FC<ContactInfoTabProps> = ({ showToast, adminLang = 'id' }) => {
+export const ContactInfoTab: React.FC<ContactInfoTabProps> = ({ showToast, adminLang = 'en' }) => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const t = ADMIN_TRANSLATIONS[adminLang].contactInfo;
+  const t = ADMIN_TRANSLATIONS[adminLang]?.contactInfo || ADMIN_TRANSLATIONS.en.contactInfo;
 
   const [formData, setFormData] = useState<Partial<ContactInfoData>>({
     company_name: 'ODST Airlines',

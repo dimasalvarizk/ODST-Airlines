@@ -22,7 +22,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     } catch {
       // Ignore localStorage errors
     }
-    return 'ar'; // Default to Arabic (ar)
+    return 'en'; // Default to English (en)
   });
 
   const setLanguage = (lang: Language) => {
@@ -55,7 +55,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   }, [language]);
 
   const isRTL = language === 'ar';
-  const t = TRANSLATIONS[language] || TRANSLATIONS.id;
+  const t = TRANSLATIONS[language] || TRANSLATIONS.en;
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t, isRTL }}>

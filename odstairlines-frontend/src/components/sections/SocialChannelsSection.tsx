@@ -60,7 +60,7 @@ export const SocialChannelsSection: React.FC = () => {
 
             {/* X (Twitter) */}
             <a
-              href="https://x.com"
+              href="https://x.com/ODSTGroup"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2.5 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/25 hover:border-white/40 text-white text-xs sm:text-sm font-medium transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"

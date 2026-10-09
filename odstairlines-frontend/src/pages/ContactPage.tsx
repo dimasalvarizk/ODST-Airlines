@@ -18,7 +18,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
   const { t, isRTL, language } = useLanguage();
   const { showToast } = useToast();
 
-  const [isReady, setIsReady] = useState(true);
+  const [isReady, setIsReady] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',

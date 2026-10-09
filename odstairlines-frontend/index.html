@@ -43,8 +43,8 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@odst.group" />
-    <meta name="twitter:creator" content="@odst.group" />
+    <meta name="twitter:site" content="@ODSTGroup" />
+    <meta name="twitter:creator" content="@ODSTGroup" />
     <meta name="twitter:title" content="ODST Airlines" />
     <meta name="twitter:description" content="ODST Airlines, رؤية طيران حديثة تقرّب المسافات بين إندونيسيا والمملكة العربية السعودية، مع عناية خاصة برحلات الحج والعمرة." />
     <meta name="twitter:image" content="https://odstairlines.com/og-image.jpg" />
@@ -66,7 +66,8 @@
           "slogan": "Mendekatkan Jarak. Menghargai Makna Perjalanan.",
           "sameAs": [
             "https://www.instagram.com/odst.group/",
-            "https://www.facebook.com/ODSTAirlines/"
+            "https://www.facebook.com/ODSTAirlines/",
+            "https://x.com/ODSTGroup"
           ],
           "areaServed": [
             {
@@ -192,6 +193,14 @@
     </style>
   </head>
   <body class="bg-[#080D24] text-[#242E69] font-arabic antialiased overflow-x-hidden min-h-screen">
+    <script>
+      (function() {
+        var p = (window.location.pathname || '').toLowerCase();
+        if (p.startsWith('/internal-odst-gate') || p.startsWith('/admin')) {
+          document.write('<style>#odst-splash{display:none !important;visibility:hidden !important;opacity:0 !important;pointer-events:none !important;}</style>');
+        }
+      })();
+    </script>
     <!-- Instant 0ms Preloader Splash Screen (Zero White Flash / Zero Mobile Delay) -->
     <div id="odst-splash" aria-label="ODST Airlines Loading">
       <div class="odst-splash-glow"></div>
@@ -334,6 +343,15 @@
 
       <script>
         (function() {
+          var currentPath = (window.location.pathname || '').toLowerCase();
+          if (currentPath.startsWith('/internal-odst-gate') || currentPath.startsWith('/admin')) {
+            var el = document.getElementById('odst-splash');
+            if (el && el.parentNode) {
+              el.parentNode.removeChild(el);
+            }
+            return;
+          }
+
           var splash = document.getElementById('odst-splash');
           var plane = document.getElementById('odst-plane');
           var trail = document.getElementById('odst-flight-trail');

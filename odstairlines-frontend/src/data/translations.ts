@@ -199,7 +199,7 @@ export const TRANSLATIONS: Record<Language, TranslationData> = {
     },
     features: {
       label: 'الميزات الرئيسية',
-      title: 'أساس رحلة حديثة',
+      title: 'تجربة حديثة لرحلات الطيران',
       subtitle: 'ثلاثة محاور رئيسية تشكّل تجربة الطيران الاستثنائية مع ODST Airlines.',
       cards: [
         {
@@ -290,7 +290,7 @@ export const TRANSLATIONS: Record<Language, TranslationData> = {
       ],
       contactLinks: [
         { label: 'إنستغرام', href: 'https://www.instagram.com/odst.group/' },
-        { label: 'إكس', href: 'https://x.com' },
+        { label: 'إكس', href: 'https://x.com/ODSTGroup' },
         { label: 'فيسبوك', href: 'https://www.facebook.com/ODSTAirlines/' },
       ],
     },
@@ -376,7 +376,7 @@ export const TRANSLATIONS: Record<Language, TranslationData> = {
     },
     features: {
       label: 'Key Features',
-      title: 'Foundations of Modern Aviation',
+      title: 'The modern air travel experience',
       subtitle: 'Three core pillars defining the extraordinary flight experience with ODST Airlines.',
       cards: [
         {
@@ -467,7 +467,7 @@ export const TRANSLATIONS: Record<Language, TranslationData> = {
       ],
       contactLinks: [
         { label: 'Instagram', href: 'https://www.instagram.com/odst.group/' },
-        { label: 'X', href: 'https://x.com' },
+        { label: 'X', href: 'https://x.com/ODSTGroup' },
         { label: 'Facebook', href: 'https://www.facebook.com/ODSTAirlines/' },
       ],
     },
@@ -553,7 +553,7 @@ export const TRANSLATIONS: Record<Language, TranslationData> = {
     },
     features: {
       label: 'Fitur Utama',
-      title: 'Pondasi Penerbangan Modern',
+      title: 'Pengalaman Penerbangan Modern',
       subtitle: 'Tiga pilar utama yang membentuk pengalaman terbang bersama ODST Airlines.',
       cards: [
         {
@@ -644,7 +644,7 @@ export const TRANSLATIONS: Record<Language, TranslationData> = {
       ],
       contactLinks: [
         { label: 'Instagram', href: 'https://www.instagram.com/odst.group/' },
-        { label: 'X', href: 'https://x.com' },
+        { label: 'X', href: 'https://x.com/ODSTGroup' },
         { label: 'Facebook', href: 'https://www.facebook.com/ODSTAirlines/' },
       ],
     },
